@@ -2,7 +2,7 @@ import React from "react";
 
 export const Header: React.FC = () => {
   return (
-    <div className="px-4 py-6">
+    <div className="px-4 py-6 border border-b">
       <div className="flex justify-between">
         <div className="font-bold text-3xl">
           Career<span className="text-blue-500">NEST</span>
