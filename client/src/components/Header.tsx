@@ -5,7 +5,7 @@ export const Header: React.FC = () => {
     <div className="px-4 py-6">
       <div className="flex justify-between">
         <div className="font-bold text-3xl">
-          Talent<span className="text-blue-400">NEST</span>
+          Career<span className="text-blue-500">NEST</span>
         </div>
         <div className="">
           <div className="text-lg flex gap-4">
