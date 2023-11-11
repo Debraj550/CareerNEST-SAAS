@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 export const Header: React.FC = () => {
-  console.log("header rendered");
+  const isLoggedin = useAuth();
 
   return (
     <div className="px-4 py-6 border border-b">
@@ -12,19 +13,24 @@ export const Header: React.FC = () => {
             Career<span className="text-blue-500">NEST</span>
           </Link>
         </div>
-        <div className="w-3/12">
-          <input
-            type="text"
-            className="border-2 border-gray-300 px-2 py-1 w-full rounded-md"
-          ></input>
-        </div>
-        <div>
-          <div className="text-lg flex gap-6">
-            <div>Jobs</div>
-            <div>Resume</div>
-            <div>My Profile</div>
-            <div>Log Out</div>
-          </div>
+        {isLoggedin ? (
+          <>
+            <div className="w-3/12">
+              <input
+                type="text"
+                className="border-2 border-gray-300 px-2 py-1 w-full rounded-md"
+              ></input>
+            </div>
+            <div>
+              <div className="text-lg flex gap-6">
+                <div>Jobs</div>
+                <div>Resume</div>
+                <div>My Profile</div>
+                <div>Log Out</div>
+              </div>
+            </div>
+          </>
+        ) : (
           <div className="text-lg flex gap-4">
             <Link
               to={"/signup"}
@@ -39,7 +45,7 @@ export const Header: React.FC = () => {
               Sign In
             </Link>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

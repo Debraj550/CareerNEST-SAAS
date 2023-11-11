@@ -1,9 +1,7 @@
-import React, { useState } from "react";
-
-
+import { useState } from "react";
 
 const useAuth = () => {
-  const isLoggedin: boolean = true;
+  const [isLoggedin, setIsLoggedin] = useState<boolean>(false);
   return isLoggedin;
 };
 
