@@ -23,8 +23,9 @@ export const Header: React.FC = () => {
             <div>Jobs</div>
             <div>Resume</div>
             <div>My Profile</div>
+            <div>Log Out</div>
           </div>
-          <div className="text-lg flex gap-4 hidden">
+          <div className="text-lg flex gap-4">
             <Link
               to={"/signup"}
               className="transition-all hover:bg-slate-100 px-4 py-2 rounded-full"
