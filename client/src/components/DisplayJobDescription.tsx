@@ -12,7 +12,7 @@ const DisplayJobDescription = ({ job }: DisplayJobDescriptionProps) => {
     company.slice(0, 1).toUpperCase() + company.slice(1).toLowerCase();
 
   return (
-    <div className="border-2 shadow-md min-h-screen mx-4 px-6 py-2 overflow-y-scroll relative">
+    <div className="border-2 shadow-md min-h-[750px] max-h-screen mx-4 px-6 py-2 overflow-y-scroll relative rounded-lg">
       <div className="mb-4">
         <h1 className="text-2xl font-bold ">{job_title.toUpperCase()}</h1>
         <p className="text-lg text-blue-600 font-bold">

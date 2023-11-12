@@ -3,11 +3,12 @@ import jobs from "../mockdata/jobs.json";
 import DisplayJobCard from "./DisplayJobCard"; // Fix the import statement
 import { Job } from "../models/Job";
 import DisplayJobDescription from "./DisplayJobDescription";
+import Lottie from "lottie-react";
+import joblitte from "../static/joblottie.json";
 type Props = {};
 
 const DisplayJobs = (props: Props) => {
   const [selectedJob, setSelectedJob] = useState<Job>();
-
   const handleJobClick = (job: Job) => {
     setSelectedJob(job);
   };
@@ -30,10 +31,13 @@ const DisplayJobs = (props: Props) => {
         {selectedJob ? (
           <DisplayJobDescription job={selectedJob} />
         ) : (
-          <div className="border-2 shadow-md min-h-screen mx-4 px-6 py-2 overflow-y-scroll relative">
-            <h1 className="text-center font-bold text-lg">
-              Click on a job to display
+          <div className="border-2 shadow-md min-h-[750px] max-h-screen mx-4 px-6 py-2 overflow-y-auto relative">
+            <h1 className="text-center font-bold text-xl my-4">
+              Click on a Job on the left side to find more about it.
             </h1>
+            <div>
+              <Lottie className="h-96" animationData={joblitte} />
+            </div>
           </div>
         )}
       </div>
