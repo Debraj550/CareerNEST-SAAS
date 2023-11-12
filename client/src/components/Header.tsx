@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
 export const Header: React.FC = () => {
-  const isLoggedin = useAuth();
+  const [isLoggedin] = useAuth();
 
   return (
     <div className="px-4 py-6 border border-b">
@@ -23,10 +23,30 @@ export const Header: React.FC = () => {
             </div>
             <div>
               <div className="text-lg flex gap-6">
-                <div>Jobs</div>
-                <div>Resume</div>
-                <div>My Profile</div>
-                <div>Log Out</div>
+                <Link
+                  className="px-2 py-1 border-b-2 border-gray-400 rounded-xl "
+                  to="/jobs"
+                >
+                  <h1 className="transition-all hover:scale-105">Jobs</h1>
+                </Link>
+                <Link
+                  className="px-2 py-1 border-b-2 border-gray-400 rounded-xl"
+                  to="/jobs"
+                >
+                  <h1 className="transition-all hover:scale-105">Resume</h1>
+                </Link>
+                <Link
+                  className="px-2 py-1 border-b-2 border-gray-400 rounded-xl"
+                  to="/jobs"
+                >
+                  <h1 className="transition-all hover:scale-105">My Profile</h1>
+                </Link>
+                <Link
+                  className="px-2 py-1 border-2 border-red-500 rounded-xl transition-all hover:bg-slate-100"
+                  to="/jobs"
+                >
+                  Logout
+                </Link>
               </div>
             </div>
           </>
