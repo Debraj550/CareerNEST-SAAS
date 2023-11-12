@@ -10,7 +10,9 @@ export const Header: React.FC = () => {
       <div className="flex justify-between">
         <div className="font-bold text-3xl">
           <Link to={"/"}>
-            Career<span className="text-blue-500">NEST</span>
+            <h1 className="transition-all hover:scale-100">
+              Career<span className="text-blue-500">NEST</span>
+            </h1>
           </Link>
         </div>
         {isLoggedin ? (
@@ -27,25 +29,25 @@ export const Header: React.FC = () => {
                   className="px-2 py-1 border-b-2 border-gray-400 rounded-xl "
                   to="/jobs"
                 >
-                  <h1 className="transition-all hover:scale-105">Jobs</h1>
+                  <h1 className="transition-all hover:scale-95">Jobs</h1>
                 </Link>
                 <Link
                   className="px-2 py-1 border-b-2 border-gray-400 rounded-xl"
                   to="/jobs"
                 >
-                  <h1 className="transition-all hover:scale-105">Resume</h1>
+                  <h1 className="transition-all hover:scale-95">Resume</h1>
                 </Link>
                 <Link
                   className="px-2 py-1 border-b-2 border-gray-400 rounded-xl"
                   to="/jobs"
                 >
-                  <h1 className="transition-all hover:scale-105">My Profile</h1>
+                  <h1 className="transition-all hover:scale-95">My Profile</h1>
                 </Link>
                 <Link
-                  className="px-2 py-1 border-2 border-red-500 rounded-xl transition-all hover:bg-slate-100"
+                  className="px-2 py-1 border border-red-800  rounded-xl transition-all hover:bg-slate-100"
                   to="/jobs"
                 >
-                  Logout
+                  <h1 className="transition-all hover:scale-95">Logout</h1>
                 </Link>
               </div>
             </div>

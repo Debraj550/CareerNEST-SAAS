@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const useAuth = () => {
-  const [isLoggedin, setIsLoggedin] = useState<boolean>(false);
+  const [isLoggedin, setIsLoggedin] = useState<boolean>(true);
   return [isLoggedin, setIsLoggedin];
 };
 
