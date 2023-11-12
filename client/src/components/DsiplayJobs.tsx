@@ -27,7 +27,7 @@ const DisplayJobs = (props: Props) => {
       </div>
 
       <div className="w-8/12">
-        <DisplayJobDescription job={selectedJob} />
+        {selectedJob && <DisplayJobDescription job={selectedJob} />}
       </div>
     </div>
   );
