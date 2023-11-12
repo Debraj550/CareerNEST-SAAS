@@ -8,7 +8,6 @@ const JobsPage = (props: Props) => {
   return (
     <div className="flex justify-between p-4 mx-10">
       <DsiplayJobs />
-      <DisplayJobDescription />
     </div>
   );
 };

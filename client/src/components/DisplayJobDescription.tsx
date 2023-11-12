@@ -1,9 +1,17 @@
 import React from "react";
+import { Job } from "../models/Job";
 
-type Props = {};
+interface DisplayJobDescriptionProps {
+  job: Job | undefined;
+}
 
-const DisplayJobDescription = (props: Props) => {
-  return <div className="w-8/12 px-6 py-2">DisplayJobDescription</div>;
+const DisplayJobDescription = ({ job }: DisplayJobDescriptionProps) => {
+
+  return (
+    <div className="border-2 shadow-md min-h-screen mx-4 px-6 py-2 ">
+      DisplayJobDescription
+    </div>
+  );
 };
 
 export default DisplayJobDescription;
