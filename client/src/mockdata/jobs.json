@@ -3,18 +3,24 @@
     "job_id": 1,
     "posted_by": "abc",
     "job_title": "sde1",
-    "job_description": "abcdaubdaisbdashdbadbahdbadas"
+    "company": "nutanix",
+    "job_description": "abcdaubdaisbdashdbadbahdbadas",
+    "location": "Pune, India"
   },
   {
     "job_id": 2,
     "posted_by": "def",
-    "job_title": "sde2",
-    "job_description": "abcdaubdaiasdasasdasdasdsbdashdbadbahdbadas"
+    "job_title": "Frontend Developer",
+    "company": "amazon",
+    "job_description": "abcdaubdaiasdasasdasdasdsbdashdbadbahdbadas",
+    "location": "Hyderbad, India"
   },
   {
     "job_id": 3,
     "posted_by": "ghi",
-    "job_title": "sde3",
-    "job_description": "abcdaubdaizcxzczxczczxsbdashdbadbahdbadas"
+    "job_title": "Cloud Engineer",
+    "company": "microsoft",
+    "job_description": "abcdaubdaizcxzczxczczxsbdashdbadbahdbadas",
+    "location": "Bengaluru, India"
   }
 ]
