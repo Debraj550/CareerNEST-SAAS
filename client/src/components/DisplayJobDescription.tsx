@@ -2,11 +2,12 @@ import React from "react";
 import { Job } from "../models/Job";
 
 interface DisplayJobDescriptionProps {
-  job: Job | any;
+  job: Job;
 }
 
 const DisplayJobDescription = ({ job }: DisplayJobDescriptionProps) => {
   const { job_title, company, location, posted_by, job_description } = job;
+
   const formattedCompanyName: string =
     company.slice(0, 1).toUpperCase() + company.slice(1).toLowerCase();
 

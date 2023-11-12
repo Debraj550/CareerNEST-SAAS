@@ -27,7 +27,15 @@ const DisplayJobs = (props: Props) => {
       </div>
 
       <div className="w-8/12">
-        {selectedJob && <DisplayJobDescription job={selectedJob} />}
+        {selectedJob ? (
+          <DisplayJobDescription job={selectedJob} />
+        ) : (
+          <div className="border-2 shadow-md min-h-screen mx-4 px-6 py-2 overflow-y-scroll relative">
+            <h1 className="text-center font-bold text-lg">
+              Click on a job to display
+            </h1>
+          </div>
+        )}
       </div>
     </div>
   );

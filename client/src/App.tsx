@@ -7,6 +7,7 @@ import ErrorPage from "./pages/ErrorPage";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import JobsPage from "./pages/JobsPage";
 import useAuth from "./hooks/useAuth";
+import ResumePage from "./pages/ResumePage";
 
 function App() {
   const [isLoggedin] = useAuth();
@@ -22,6 +23,10 @@ function App() {
         <Route
           path="/jobs"
           element={isLoggedin ? <JobsPage /> : <Signin />}
+        ></Route>
+        <Route
+          path="/resume"
+          element={isLoggedin ? <ResumePage /> : <Signin />}
         ></Route>
         <Route path="*" element={<ErrorPage />} />
       </Routes>
