@@ -1,4 +1,3 @@
-import React from "react";
 import { Job } from "../models/Job";
 
 interface DisplayJobCardProps {
