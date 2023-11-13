@@ -1,13 +1,16 @@
+// All Imports
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import knex from "knex";
 import bcrypt from "bcryptjs";
+import dbConfig from "./utils/dbconnection.js";
 import dotenv from "dotenv";
-import dbConfig from "./dbconnection.js";
-
 dotenv.config();
+
+// Database configuration
 const db = knex(dbConfig.development);
+
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
