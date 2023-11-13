@@ -7,10 +7,10 @@ import dotenv from "dotenv";
 import dbConfig from "./dbconnection.js";
 
 dotenv.config();
-
 const db = knex(dbConfig.development);
-
 const app = express();
+app.use(cors());
+app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
   res.send("Hello, world!");
