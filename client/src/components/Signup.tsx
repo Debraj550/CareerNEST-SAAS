@@ -38,9 +38,12 @@ const Signup = (props: Props) => {
 
   console.log(user);
   return (
-    <div className="flex justify-center gap-10 my-10">
-      <WelcomeBoard />
-      <div className="bg-slate-100  p-4 rounded-xl w-3/12 flex flex-col gap-1">
+    <div className="flex justify-center gap-10 my-10 mx-8">
+      <div className="w-9/12">
+        <WelcomeBoard />
+      </div>
+
+      <div className="bg-slate-100 p-4 rounded-xl w-3/12 flex flex-col gap-1">
         <div className="p-4 text-center border-b-2 mb-4">
           <h1 className="font-bold text-gray-600 text-lg">
             Create your account
