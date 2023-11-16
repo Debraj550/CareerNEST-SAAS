@@ -1,15 +1,12 @@
-// All Imports
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import knex from "knex";
 import dbConfig from "./utils/dbconnection.js";
 import dotenv from "dotenv";
+import tenantController from "./controllers/tenantController.js";
 dotenv.config();
 
-// Controller Imports
-
-// Database configuration
 const db = knex(dbConfig.development);
 
 const app = express();
@@ -19,14 +16,9 @@ app.use(bodyParser.json());
 app.get("/", async (req, res) => {
   res.status(200).json("API Working");
 });
-app.get("/api/tenant/get-all-tenants", async (req, res) => {
-  try {
-    const response = await db.select("*").from("tenantcountries");
-    res.status(200).json(response);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
+
+app.get("/api/tenant/get-all-tenants", (req, res) => {
+  tenantController.getAllTenants(req, res, db);
 });
 
 app.post("/api/tenant/set-load-balancer", (req, res) => {});
