@@ -4,7 +4,7 @@ import useAuth from "../hooks/useAuth";
 
 export const Header: React.FC = () => {
   const [isLoggedin] = useAuth();
-
+  const [isAdmin] = useAuth();
   return (
     <div className="px-4 py-6 border border-b">
       <div className="flex justify-between">
@@ -30,6 +30,14 @@ export const Header: React.FC = () => {
             </div>
             <div>
               <div className="text-lg flex gap-6">
+                {isAdmin && (
+                  <Link
+                    className="px-2 py-1 border-b-2 border-gray-400 rounded-xl "
+                    to="/admin"
+                  >
+                    <h1 className="transition-all hover:scale-95">Admin</h1>
+                  </Link>
+                )}
                 <Link
                   className="px-2 py-1 border-b-2 border-gray-400 rounded-xl "
                   to="/jobs"
