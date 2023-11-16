@@ -8,9 +8,11 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import JobsPage from "./pages/JobsPage";
 import useAuth from "./hooks/useAuth";
 import ResumePage from "./pages/ResumePage";
+import AdminPage from "./pages/AdminPage";
 
 function App() {
   const [isLoggedin] = useAuth();
+  const [isAdmin] = useAuth();
   return (
     <div className="App">
       <Header />
@@ -27,6 +29,10 @@ function App() {
         <Route
           path="/resume"
           element={isLoggedin ? <ResumePage /> : <Signin />}
+        ></Route>
+        <Route
+          path="/admin"
+          element={isAdmin ? <AdminPage /> : <Signin />}
         ></Route>
         <Route path="*" element={<ErrorPage />} />
       </Routes>
