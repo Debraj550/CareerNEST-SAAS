@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { tenantApi } from "../api/axios";
+import TenantCard from "../components/TenantCard";
 
 interface Tenants {
   id: number;
@@ -26,7 +27,11 @@ const AdminPage = () => {
       <div>
         {tenants &&
           tenants.map((tenant: Tenants) => {
-            return <div key={tenant.id}> {tenant.country_name}</div>;
+            return (
+              <div key={tenant.id}>
+                <TenantCard tenant={tenant} />
+              </div>
+            );
           })}
       </div>
     </div>
