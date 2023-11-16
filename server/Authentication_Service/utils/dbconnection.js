@@ -12,7 +12,6 @@ const dbConfig = {
       database: process.env.postgres_DATABASE,
       port: process.env.postgres_PORT,
       ssl: {
-        require: true,
         rejectUnauthorized: false,
       },
     },
