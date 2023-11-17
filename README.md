@@ -36,4 +36,11 @@
 - The API should return the following in a JSON object: Success or failure, Vector clocks of
   all replicas, Node number where the write took place (in case of write)
 
---&--
+## Ports
+
+- Tenant-Management-Service (Port: 8001)
+- User-Auth-Service (Port: 8001)
+- Job-Posts-Service (Port: 8002)
+- Job-Application Service (Port: 8003)
+- Resume-Builder-Service (Port: 8004)
+- Job-Notification-Service (Port: 8005)
