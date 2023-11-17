@@ -6,14 +6,14 @@ interface TenantCardProps {
 }
 
 const TenantCard = ({ tenant }: TenantCardProps) => {
-  const { id, country_name } = tenant;
+  const { country_name } = tenant;
   const [lbMethod, setLbMethod] = useState<string>("least_conn");
   const [autoMethod, setAutoMethod] = useState<string>("threshold_based");
 
-  const handleLbMethod = (e: any) => {
+  const handleLbMethod = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setLbMethod(e.target.value);
   };
-  const handleAutoMethod = (e: any) => {
+  const handleAutoMethod = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setAutoMethod(e.target.value);
   };
 
