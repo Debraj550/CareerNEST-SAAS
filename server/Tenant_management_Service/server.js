@@ -14,7 +14,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.get("/", async (req, res) => {
-  res.status(200).json("API Working for Tenant Management service");
+  res.status(200).json("API Working for Tenant Management service.");
 });
 
 app.get("/api/tenant/get-all-tenants", (req, res) => {

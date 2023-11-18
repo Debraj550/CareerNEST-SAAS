@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  react:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/usr/src/app
+
+  tenant_service:
+    image: debraj550/tenant-management-service:v2
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./server/Tenant_management_Service:/usr/src/app
+    depends_on:
+      - react
+
+  auth_service:
+    image: debraj550/authentication-service:v2
+    ports:
+      - "8002:8002"
+    depends_on:
+      - react
