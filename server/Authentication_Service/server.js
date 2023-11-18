@@ -20,7 +20,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.get("/", async (req, res) => {
-  res.status(200).json("API Working");
+  res.status(200).json("API Working for Authenticaion Service");
   // const response = await db.select("*").from("users");
   // res.json(response);
 });
