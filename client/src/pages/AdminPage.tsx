@@ -17,6 +17,7 @@ const AdminPage = () => {
       const response = await tenantApi.get("/api/tenant/get-all-tenants");
       const data = await response?.data;
       setTenants(data);
+      console.log(data);
     } catch (err) {
       console.log(err);
     }
