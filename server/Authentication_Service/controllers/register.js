@@ -2,7 +2,6 @@ export const registerHandler = async (req, res, db, bcrypt) => {
   const { fname, lname, email, country, is_recruiter, is_admin, password } =
     req.body;
 
-  // Adding Security Validation
   if (!fname || !lname || !email || !country || !password) {
     return res.status(400).json("Incorrect Fom Submission Values");
   }

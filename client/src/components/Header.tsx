@@ -68,16 +68,16 @@ export const Header: React.FC = () => {
         ) : (
           <div className="text-lg flex gap-4">
             <Link
-              to={"/signup"}
+              to={"/signin"}
               className="transition-all hover:bg-slate-100 px-4 py-2 rounded-full"
             >
-              Join Now
+              Sign In
             </Link>
             <Link
-              to={"/signin"}
+              to={"/signup"}
               className="border border-blue-500 px-4 py-2 rounded-full transition-all hover:bg-slate-100 hover:border-blue-700"
             >
-              Sign In
+              Sign Up
             </Link>
           </div>
         )}

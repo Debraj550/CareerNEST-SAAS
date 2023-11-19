@@ -4,25 +4,39 @@ import cors from "cors";
 import knex from "knex";
 import dbConfig from "./utils/dbconnection.js";
 import dotenv from "dotenv";
-import tenantController from "./controllers/tenantController.js";
+import registerTenant from "./controllers/registerTenants.js";
+import getAllTenants from "./controllers/getAllTenants.js";
+import loginTenant from "./controllers/loginTenant.js";
 dotenv.config();
 
 const db = knex(dbConfig.development);
-
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+// Get default
 app.get("/", async (req, res) => {
   res.status(200).json("API Working for Tenant Management service.");
 });
 
+// Get all tenants
 app.get("/api/tenant/get-all-tenants", (req, res) => {
-  tenantController.getAllTenants(req, res, db);
+  getAllTenants(req, res, db);
 });
 
+// Register a tenant
+app.post("/api/tenant/register-tenant", (req, res) => {
+  registerTenant(req, res, db);
+});
+
+app.post("/api/tenant/login-tenant", (req, res) => {
+  loginTenant(req, res, db);
+});
+
+// Set tenant loadbalancer
 app.post("/api/tenant/set-load-balancer", (req, res) => {});
 
+// Set tenant autoscalar
 app.post("/api/tenant/set-auto-scalar", (req, res) => {});
 
 app.listen(process.env.PORT, async () => {

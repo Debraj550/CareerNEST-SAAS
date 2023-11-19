@@ -15,6 +15,8 @@ const Signin = (props: Props) => {
     password: "",
   });
 
+  const [isTenant, setIsTenant] = useState<string>("Employee");
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setUser((prevUser) => ({
@@ -22,9 +24,12 @@ const Signin = (props: Props) => {
       [name]: value,
     }));
   };
+  const handleIsTenant = (e: ChangeEvent<HTMLSelectElement>) => {
+    setIsTenant(e.target.value);
+  };
 
   //console.log(user);
-
+  console.log(isTenant);
   return (
     <div className="flex justify-center gap-10 my-10 mx-8">
       <div className="w-9/12">
@@ -36,7 +41,21 @@ const Signin = (props: Props) => {
             Log in to your account
           </h1>
         </div>
-
+        <div>
+          <h1 className="text-sm font-semibold py-2">
+            Are you signing in as an Employee or Organization
+          </h1>
+          <select
+            className="px-2 py-1 border-gray-300 border w-full"
+            name="isTenant"
+            id="isTenant"
+            value={isTenant}
+            onChange={handleIsTenant}
+          >
+            <option value="Emoloyee">Employee</option>
+            <option value="Tenant">Tenant</option>
+          </select>
+        </div>
         <div>
           <h1 className="text-sm font-semibold py-2">Email</h1>
           <input
@@ -66,7 +85,7 @@ const Signin = (props: Props) => {
         <div>
           <div className="flex justify-center">
             <p>
-              New to CareerNEST?{" "}
+              Want to onboard as an Organization?{" "}
               <Link
                 className="text-blue-600 hover:text-blue-800 font-bold"
                 to={"/signup"}

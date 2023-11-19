@@ -1,4 +1,5 @@
 import os from "os";
+
 const getAllTenants = async (req, res, db) => {
   try {
     const response = await db.select("*").from("tenantcountries");
@@ -10,6 +11,4 @@ const getAllTenants = async (req, res, db) => {
   }
 };
 
-export default {
-  getAllTenants,
-};
+export default getAllTenants;
