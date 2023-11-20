@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Header } from "./components/Header";
 import Signup from "./components/Signup";
 import { Route, Routes } from "react-router-dom";
@@ -6,13 +6,15 @@ import Signin from "./components/Signin";
 import ErrorPage from "./pages/ErrorPage";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import JobsPage from "./pages/JobsPage";
-import useAuth from "./hooks/useAuth";
 import ResumePage from "./pages/ResumePage";
 import AdminPage from "./pages/AdminPage";
+import { AuthContext } from "./context/AuthContext";
 
 function App() {
-  const [isLoggedin] = useAuth();
-  const [isAdmin] = useAuth();
+  const authContext = useContext(AuthContext);
+  const isLoggedin = authContext?.user.status;
+  const isTenant = authContext?.user.isTenant;
+
   return (
     <div className="App">
       <Header />
@@ -23,8 +25,10 @@ function App() {
           <Route path="/signin" element={<Signin />} />
         </Route>
         <Route
-          path="/jobs"
-          element={isLoggedin ? <JobsPage /> : <Signin />}
+          path="/home"
+          element={
+            isLoggedin ? isTenant ? <AdminPage /> : <JobsPage /> : <Signin />
+          }
         ></Route>
         <Route
           path="/resume"
@@ -32,7 +36,7 @@ function App() {
         ></Route>
         <Route
           path="/admin"
-          element={isAdmin ? <AdminPage /> : <Signin />}
+          element={isTenant ? <AdminPage /> : <Signin />}
         ></Route>
         <Route path="*" element={<ErrorPage />} />
       </Routes>

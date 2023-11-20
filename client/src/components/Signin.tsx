@@ -1,7 +1,8 @@
-import React, { ChangeEvent, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { ChangeEvent, useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import WelcomeBoard from "./WelcomeBoard";
 import { tenantApi } from "../api/axios";
+import { AuthContext } from "../context/AuthContext";
 
 type Props = {};
 
@@ -17,6 +18,8 @@ const Signin = (props: Props) => {
   });
   const [isTenant, setIsTenant] = useState<string>("Employee");
   const [error, setError] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const authContext = useContext(AuthContext);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -35,7 +38,20 @@ const Signin = (props: Props) => {
     try {
       const response = await tenantApi.post(url, user);
       const data = response.data;
-      console.log(data);
+      if (data?.status) {
+        console.log(data);
+        authContext?.setUser({
+          name: data.tenantName,
+          email: data.email,
+          date_joined: data.date_joined,
+          status: data.status,
+          isTenant: isTenant === "Tenant" ? 1 : 0,
+        });
+        navigate("/home");
+      } else {
+        setError(true);
+        return;
+      }
     } catch (err) {
       setError(true);
       console.log(err);

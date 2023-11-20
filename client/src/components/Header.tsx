@@ -1,15 +1,28 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 export const Header: React.FC = () => {
-  const [isLoggedin] = useAuth();
-  const [isAdmin] = useAuth();
+  const authContext = useContext(AuthContext);
+  const isLoggedin = authContext?.user.status;
+  const isTenant = authContext?.user.isTenant;
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    authContext?.setUser({
+      name: "",
+      email: "",
+      date_joined: "",
+      status: false,
+      isTenant: 0,
+    });
+    navigate("/signin");
+  };
+
   return (
     <div className="px-4 py-6 border border-b">
       <div className="flex justify-between">
         <div className="font-bold text-3xl">
-          <Link to={"/"}>
+          <Link to={"/home"}>
             <h1 className="transition-all hover:scale-100">
               Career<span className="text-blue-500">NEST</span>
             </h1>
@@ -30,38 +43,47 @@ export const Header: React.FC = () => {
             </div>
             <div>
               <div className="text-lg flex gap-6">
-                {isAdmin && (
+                {isTenant && (
                   <Link
                     className="px-2 py-1 border-b-2 border-gray-400 rounded-xl "
                     to="/admin"
                   >
-                    <h1 className="transition-all hover:scale-95">Admin</h1>
+                    <h1 className="transition-all hover:scale-95">
+                      Service Management
+                    </h1>
                   </Link>
                 )}
-                <Link
-                  className="px-2 py-1 border-b-2 border-gray-400 rounded-xl "
-                  to="/jobs"
-                >
-                  <h1 className="transition-all hover:scale-95">Jobs</h1>
-                </Link>
-                <Link
-                  className="px-2 py-1 border-b-2 border-gray-400 rounded-xl"
-                  to="/resume"
-                >
-                  <h1 className="transition-all hover:scale-95">Resume</h1>
-                </Link>
-                <Link
-                  className="px-2 py-1 border-b-2 border-gray-400 rounded-xl"
-                  to="/jobs"
-                >
-                  <h1 className="transition-all hover:scale-95">My Profile</h1>
-                </Link>
-                <Link
+                {!isTenant && (
+                  <div>
+                    <Link
+                      className="px-2 py-1 border-b-2 border-gray-400 rounded-xl "
+                      to="/home"
+                    >
+                      <h1 className="transition-all hover:scale-95">Jobs</h1>
+                    </Link>
+                    <Link
+                      className="px-2 py-1 border-b-2 border-gray-400 rounded-xl"
+                      to="/resume"
+                    >
+                      <h1 className="transition-all hover:scale-95">Resume</h1>
+                    </Link>
+                    <Link
+                      className="px-2 py-1 border-b-2 border-gray-400 rounded-xl"
+                      to="/home"
+                    >
+                      <h1 className="transition-all hover:scale-95">
+                        My Profile
+                      </h1>
+                    </Link>
+                  </div>
+                )}
+
+                <button
                   className="px-2 py-1 border border-red-800  rounded-xl transition-all hover:bg-slate-100"
-                  to="/jobs"
+                  onClick={handleLogout}
                 >
                   <h1 className="transition-all hover:scale-95">Logout</h1>
-                </Link>
+                </button>
               </div>
             </div>
           </>
