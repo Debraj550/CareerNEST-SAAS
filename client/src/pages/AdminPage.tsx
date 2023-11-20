@@ -7,6 +7,7 @@ import spinner from "../static/spinner.json";
 interface Tenants {
   id: number;
   country_name: string;
+  tenant_id: number;
 }
 
 const AdminPage = () => {
@@ -36,7 +37,7 @@ const AdminPage = () => {
           <>
             {tenants.map((tenant: Tenants) => {
               return (
-                <div key={tenant.id}>
+                <div key={tenant.tenant_id}>
                   <TenantCard tenant={tenant} />
                 </div>
               );

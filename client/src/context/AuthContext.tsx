@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  createContext,
-  ReactNode,
-  Dispatch,
-  SetStateAction,
-} from "react";
+import React, { useState, createContext, ReactNode, useEffect } from "react";
 
 interface UserSignin {
   name: string;
@@ -34,6 +28,24 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     status: false,
     isTenant: 0,
   });
+
+  const fetchStorage = async () => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      const data = JSON.parse(storedUser);
+      if (data.status === true) {
+        setUser(data);
+      }
+    }
+  };
+  useEffect(() => {
+    fetchStorage();
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("user", JSON.stringify(user));
+  }, [user]);
+
   return (
     <AuthContext.Provider value={{ user, setUser }}>
       {children}
