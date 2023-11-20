@@ -1,6 +1,8 @@
 import React, { ChangeEvent, useState } from "react";
 import { Link } from "react-router-dom";
 import WelcomeBoard from "./WelcomeBoard";
+import { tenantApi } from "../api/axios";     
+import "react-toastify/dist/ReactToastify.css";
 
 type Props = {};
 
@@ -18,17 +20,50 @@ const Signup = (props: Props) => {
     password: "",
     confirmpassword: "",
   });
+  const [error, setError] = useState<boolean>(false);
+  const [success, setSuccess] = useState<boolean>(false);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
+    setError(false);
+    setSuccess(false);
     setUser((prevUser) => ({
       ...prevUser,
       [name]: value,
     }));
   };
 
+  const handleSignup = async () => {
+    const url = "/api/tenant/register-tenant";
+    if (
+      !user.email ||
+      !user.tenantName ||
+      !user.password ||
+      !user.confirmpassword
+    ) {
+      setError(true);
+      return;
+    }
+    if (user.password === user.confirmpassword)
+      try {
+        const response = await tenantApi.post(url, {
+          tenantName: user.tenantName,
+          email: user.email,
+          password: user.password,
+        });
+        console.log(response);
+        if (response?.status === 200) {
+          setSuccess(true);
+        }
+
+      } catch (err) {
+        setError(true);
+        setSuccess(false);
+        console.log(err);
+      }
+  };
   //console.log(user);
   return (
     <div className="flex justify-center gap-10 my-10 mx-8">
@@ -89,8 +124,22 @@ const Signup = (props: Props) => {
             required
           ></input>
         </div>
+        {error && (
+          <div className="text-red-600 font-bold">
+            * Invalid email or password.
+          </div>
+        )}
+        {success && (
+          <div className="text-white bg-green-600 font-bold px-4 py-2">
+            {" "}
+            Successfully registered.
+          </div>
+        )}
         <div className="flex justify-center">
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg my-4 w-full hover:bg-blue-800">
+          <button
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg my-4 w-full hover:bg-blue-800"
+            onClick={handleSignup}
+          >
             Sign Up
           </button>
         </div>

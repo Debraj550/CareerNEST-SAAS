@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useState } from "react";
 import { Link } from "react-router-dom";
 import WelcomeBoard from "./WelcomeBoard";
+import { tenantApi } from "../api/axios";
 
 type Props = {};
 
@@ -14,11 +15,12 @@ const Signin = (props: Props) => {
     email: "",
     password: "",
   });
-
   const [isTenant, setIsTenant] = useState<string>("Employee");
+  const [error, setError] = useState<boolean>(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    setError(false);
     setUser((prevUser) => ({
       ...prevUser,
       [name]: value,
@@ -28,8 +30,18 @@ const Signin = (props: Props) => {
     setIsTenant(e.target.value);
   };
 
-  //console.log(user);
-  console.log(isTenant);
+  const handleSignIn = async () => {
+    const url = isTenant === "Tenant" ? "/api/tenant/login-tenant" : "/";
+    try {
+      const response = await tenantApi.post(url, user);
+      const data = response.data;
+      console.log(data);
+    } catch (err) {
+      setError(true);
+      console.log(err);
+    }
+  };
+
   return (
     <div className="flex justify-center gap-10 my-10 mx-8">
       <div className="w-9/12">
@@ -78,7 +90,10 @@ const Signin = (props: Props) => {
         </div>
 
         <div className="flex justify-center">
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg my-4 w-full hover:bg-blue-800">
+          <button
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg my-4 w-full hover:bg-blue-800"
+            onClick={handleSignIn}
+          >
             Sign In
           </button>
         </div>
