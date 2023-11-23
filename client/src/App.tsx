@@ -9,6 +9,7 @@ import JobsPage from "./pages/JobsPage";
 import ResumePage from "./pages/ResumePage";
 import AdminPage from "./pages/AdminPage";
 import { AuthContext } from "./context/AuthContext";
+import EmployeeOnboarding from "./components/EmployeeOnboarding";
 
 function App() {
   const authContext = useContext(AuthContext);
@@ -35,8 +36,12 @@ function App() {
           element={isLoggedin ? <ResumePage /> : <Signin />}
         ></Route>
         <Route
+          path="/employee_onboard"
+          element={isTenant ? <EmployeeOnboarding /> : <ErrorPage />}
+        ></Route>
+        <Route
           path="/admin"
-          element={isTenant ? <AdminPage /> : <Signin />}
+          element={isTenant ? <AdminPage /> : <ErrorPage />}
         ></Route>
         <Route path="*" element={<ErrorPage />} />
       </Routes>
