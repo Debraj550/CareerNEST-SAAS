@@ -15,13 +15,12 @@ app.use(bodyParser.json());
 
 app.get("/api/onboard/", async (req, res) => {
   console.log("Received request for /api/onboard/checkstatus");
-  try {
-    const response = await db.select("*").from("employeeRegister");
-    res.status(200).json(response);
-  } catch (e) {
-    res.status(400).json({ error: e.message });
-  }
+  res
+    .status(200)
+    .json({ message: "API Working for Employee Onboarding service." });
 });
+
+
 
 app.listen(process.env.PORT, async () => {
   try {
