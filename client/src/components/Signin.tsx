@@ -39,13 +39,13 @@ const Signin = (props: Props) => {
       const response = await tenantApi.post(url, user);
       const data = response.data;
       if (data?.status) {
-        console.log(data);
         authContext?.setUser({
           name: data.tenantName,
           email: data.email,
           date_joined: data.date_joined,
           status: data.status,
           isTenant: isTenant === "Tenant" ? 1 : 0,
+          tenant_id: data.tenant_id,
         });
         navigate("/home");
       } else {

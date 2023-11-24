@@ -17,6 +17,7 @@ const loginTenant = async (req, res, db) => {
         email: user.email,
         date_joined: user.date_joined,
         status: true,
+        tenant_id: user.tenant_id,
       });
     } else {
       res.status(401).json({ error: "Invalid password" });

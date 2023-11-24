@@ -20,7 +20,7 @@ app.get("/api/onboard/", async (req, res) => {
     .json({ message: "API Working for Employee Onboarding service." });
 });
 
-
+app.post("/api/onboard/employee-regisster", (req, res) => {});
 
 app.listen(process.env.PORT, async () => {
   try {

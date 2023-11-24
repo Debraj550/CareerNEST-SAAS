@@ -6,6 +6,7 @@ interface UserSignin {
   date_joined: string;
   status: boolean;
   isTenant: number;
+  tenant_id?: number;
 }
 
 interface AuthContextProps {

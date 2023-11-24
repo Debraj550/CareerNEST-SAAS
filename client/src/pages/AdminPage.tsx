@@ -18,7 +18,6 @@ const AdminPage = () => {
       const response = await tenantApi.get("/api/tenant/get-all-tenants");
       const data = await response?.data;
       setTenants(data);
-      console.log(data);
     } catch (err) {
       console.log(err);
     }
@@ -27,6 +26,7 @@ const AdminPage = () => {
   useEffect(() => {
     fetchTenantData();
   }, []);
+
   return (
     <div className="p-4 mx-4">
       <div className="my-2 p-2 border-b-2">

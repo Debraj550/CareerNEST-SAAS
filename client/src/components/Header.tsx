@@ -7,6 +7,7 @@ export const Header: React.FC = () => {
   const isLoggedin = authContext?.user.status;
   const isTenant = authContext?.user.isTenant;
   const navigate = useNavigate();
+
   const handleLogout = () => {
     authContext?.setUser({
       name: "",
