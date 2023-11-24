@@ -25,6 +25,8 @@ services:
       context: ./server/Employee_Onboarding_Service
       dockerfile: Dockerfile
     ports: []
+    volumes:
+      - ./server/Employee_Onboarding_Service:/usr/src/app
     depends_on:
       - react
 

@@ -5,24 +5,22 @@ import knex from "knex";
 import bcrypt from "bcryptjs";
 import dbConfig from "./utils/dbconnection.js";
 import dotenv from "dotenv";
-dotenv.config();
 
+dotenv.config();
 const db = knex(dbConfig.development);
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-app.get("/", async (req, res) => {
-  res.status(200).json("API Working for Onboardig Service");
-});
-
-app.post("/api/onboard", (req, res) => {
-  signin.signinHandler(req, res, db, bcrypt);
-});
-
-app.post("/api/onboard", (req, res) => {
-  register.registerHandler(req, res, db, bcrypt);
+app.get("/api/onboard/", async (req, res) => {
+  console.log("Received request for /api/onboard/checkstatus");
+  try {
+    const response = await db.select("*").from("employeeRegister");
+    res.status(200).json(response);
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
 });
 
 app.listen(process.env.PORT, async () => {
