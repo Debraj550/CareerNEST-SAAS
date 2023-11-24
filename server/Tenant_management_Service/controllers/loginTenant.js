@@ -6,7 +6,7 @@ const loginTenant = async (req, res, db) => {
     const user = await db("tenants").where({ email }).first();
 
     if (!user) {
-      return res.status(401).json({ error: "Invalid email or password" });
+      return res.status(401).json({ error: "Invalid email." });
     }
     const isPasswordValid = bcrypt.compareSync(password, user.password);
     if (isPasswordValid) {
@@ -19,7 +19,7 @@ const loginTenant = async (req, res, db) => {
         status: true,
       });
     } else {
-      res.status(401).json({ error: "Invalid email or password" });
+      res.status(401).json({ error: "Invalid password" });
     }
   } catch (error) {
     console.error("Error during tenant login:", error);

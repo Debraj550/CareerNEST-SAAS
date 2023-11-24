@@ -20,12 +20,11 @@ services:
     depends_on:
       - react
 
-  auth_service:
+  employee_onboarding_service:
     build:
-      context: ./server/Authentication_Service
+      context: ./server/Employee_Onboarding_Service
       dockerfile: Dockerfile
-    ports:
-      - "8002:8002"
+    ports: []
     depends_on:
       - react
 
@@ -37,4 +36,4 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     depends_on:
       - tenant_service
-      - auth_service
+      - employee_onboarding_service
