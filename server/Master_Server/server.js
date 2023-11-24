@@ -11,28 +11,32 @@ const __dirname = dirname(__filename);
 const app = express();
 const proxy = httpProxy.createProxyServer();
 
-const employeeOnboard = [
-  { url: "http://localhost:8002", instances: [] },
+const tenantManagement = [
   {
     url: "http://localhost:8001",
     instances: [],
   },
 ];
+const employeeOnboard = [{ url: "http://localhost:8002", instances: [] }];
 
 const PORT = 8080;
-const MAX_INSTANCES = 5;
-const REQUEST_THRESHOLD = 5;
+const MAX_INSTANCES = 10;
+const REQUEST_THRESHOLD = 2;
 
-let currentIndex = 0;
-let requestCount = 0;
-
-app.use((req, res, next) => {
-  requestCount += 1;
-  next();
-});
+let currentTenantIndex = 0;
+let currentEmployeeIndex = 0;
+let tenantReqCount = 0;
+let onboardReqCount = 0;
 
 app.all("/api/onboard/*", (req, res) => {
-  const target = employeeOnboard[currentIndex].url;
+  onboardReqCount++;
+  const target = getNextEmployeeInstance().url;
+  proxy.web(req, res, { target });
+});
+
+app.all("/api/tenant/*", (req, res) => {
+  tenantReqCount++;
+  const target = getNextTenantInstance().url;
   proxy.web(req, res, { target });
 });
 
@@ -42,40 +46,86 @@ app.listen(PORT, () => {
   setInterval(checkAndScale, 5000); // Check and scale every 5 seconds
 });
 
+function getNextTenantInstance() {
+  currentTenantIndex = (currentTenantIndex + 1) % tenantManagement.length;
+  return tenantManagement[currentTenantIndex];
+}
+
+function getNextEmployeeInstance() {
+  currentEmployeeIndex = (currentEmployeeIndex + 1) % employeeOnboard.length;
+  return employeeOnboard[currentEmployeeIndex];
+}
+
 function scaleInstances() {
   for (let i = 0; i < 2; i++) {
-    createInstance();
+    createEmployeeInstance();
+    createTenantInstance();
   }
 }
 
-function createInstance() {
+function createEmployeeInstance() {
   const instancePath = path.join(
     __dirname,
     "../Employee_Onboarding_Service",
     "server.js"
   );
   const instance = spawn("node", [instancePath]);
-  employeeOnboard[currentIndex].instances.push(instance);
+  employeeOnboard[currentEmployeeIndex].instances.push(instance);
 
   instance.on("exit", (code) => {
-    const index = employeeOnboard[currentIndex].instances.indexOf(instance);
-    employeeOnboard[currentIndex].instances.splice(index, 1);
+    const index =
+      employeeOnboard[currentEmployeeIndex].instances.indexOf(instance);
+    employeeOnboard[currentEmployeeIndex].instances.splice(index, 1);
+  });
+}
+
+function createTenantInstance() {
+  const instancePath = path.join(
+    __dirname,
+    "../Tenant_management_Service",
+    "server.js"
+  );
+  const instance = spawn("node", [instancePath]);
+  tenantManagement[currentTenantIndex].instances.push(instance);
+
+  instance.on("exit", (code) => {
+    const index =
+      tenantManagement[currentTenantIndex].instances.indexOf(instance);
+    tenantManagement[currentTenantIndex].instances.splice(index, 1);
   });
 }
 
 function checkAndScale() {
   console.log(
-    "Number of instances currently - ",
-    employeeOnboard[currentIndex].instances.length
+    "Number of employee instances currently - ",
+    employeeOnboard[currentEmployeeIndex].instances.length
   );
+  console.log(
+    "Number of tenant instances currently - ",
+    tenantManagement[currentTenantIndex].instances.length
+  );
+
   if (
-    requestCount > REQUEST_THRESHOLD &&
-    employeeOnboard[currentIndex].instances.length < MAX_INSTANCES
+    onboardReqCount > REQUEST_THRESHOLD &&
+    employeeOnboard[currentEmployeeIndex].instances.length < MAX_INSTANCES
   ) {
-    console.log(`Request count is high (${requestCount}), scaling up...`);
-    createInstance();
-    requestCount = 0;
+    console.log(
+      `Request count is high (${onboardReqCount}), scaling up employee instances...`
+    );
+    createEmployeeInstance();
+    onboardReqCount = 0;
+  }
+  if (
+    tenantReqCount > REQUEST_THRESHOLD &&
+    tenantManagement[currentTenantIndex].instances.length < MAX_INSTANCES
+  ) {
+    console.log(
+      `Request count is high (${tenantReqCount}), scaling up tenant instances...`
+    );
+    createTenantInstance();
+    tenantReqCount = 0;
   } else {
-    console.log(`Request count is normal (${requestCount})`);
+    console.log(`Onboard Request count is normal (${onboardReqCount})`);
+    console.log(`Tenant Request count is normal (${tenantReqCount})`);
   }
 }

@@ -1,11 +1,13 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import axios from "axios";
 
 type Props = {};
 
 const EmployeeOnboarding = (props: Props) => {
   const authContext = useContext(AuthContext);
   console.log(authContext?.user);
+  const handleOnboarding = () => {};
   return (
     <div className="p-4 mx-4">
       <div className="my-2 p-2 border-b-2">
@@ -19,7 +21,12 @@ const EmployeeOnboarding = (props: Props) => {
         </div>
 
         <div>Email</div>
-        <button>Onboard</button>
+        <button
+          onClick={handleOnboarding}
+          className="px-4 py-2 bg-blue-500 text-white rounded-lg transition-all hover:bg-blue-600 hover:scale-105"
+        >
+          Onboard
+        </button>
       </div>
     </div>
   );
