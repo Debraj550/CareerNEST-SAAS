@@ -13,11 +13,13 @@ const proxy = httpProxy.createProxyServer();
 
 const tenantManagement = [
   {
-    url: "http://localhost:8001",
+    url: "http://tenant_service:8001",
     instances: [],
   },
 ];
-const employeeOnboard = [{ url: "http://localhost:8002", instances: [] }];
+const employeeOnboard = [
+  { url: "http://employee_onboarding_service:8002", instances: [] },
+];
 
 const PORT = 8080;
 const MAX_INSTANCES = 10;
@@ -43,16 +45,18 @@ app.all("/api/tenant/*", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Master server is running on port ${PORT}`);
   scaleInstances();
-  setInterval(checkAndScale, 5000); // Check and scale every 5 seconds
+  setInterval(checkAndScale, 5000);
 });
 
 function getNextTenantInstance() {
-  currentTenantIndex = (currentTenantIndex + 1) % tenantManagement.length;
+  currentTenantIndex =
+    (currentTenantIndex + 1) % tenantManagement.instance.length;
   return tenantManagement[currentTenantIndex];
 }
 
 function getNextEmployeeInstance() {
-  currentEmployeeIndex = (currentEmployeeIndex + 1) % employeeOnboard.length;
+  currentEmployeeIndex =
+    (currentEmployeeIndex + 1) % employeeOnboard.instance.length;
   return employeeOnboard[currentEmployeeIndex];
 }
 
@@ -64,42 +68,73 @@ function scaleInstances() {
 }
 
 function createEmployeeInstance() {
-  const instancePath = path.join(
-    __dirname,
-    "../Employee_Onboarding_Service",
-    "server.js"
-  );
-  const instance = spawn("node", [instancePath]);
-  employeeOnboard[currentEmployeeIndex].instances.push(instance);
+  return new Promise((resolve, reject) => {
+    const instancePath = path.join("/usr/src/app", "server.js");
+    const instance = spawn("nodemon", [instancePath]);
+    const childProcessId = instance.pid;
 
-  instance.on("exit", (code) => {
-    const index =
-      employeeOnboard[currentEmployeeIndex].instances.indexOf(instance);
-    employeeOnboard[currentEmployeeIndex].instances.splice(index, 1);
+    instance.on("exit", (code) => {
+      const index =
+        employeeOnboard[currentEmployeeIndex].instances.indexOf(instance);
+      employeeOnboard[currentEmployeeIndex].instances.splice(index, 1);
+      console.log(`Employee instance exited with code ${code}`);
+    });
+
+    instance.on("error", (err) => {
+      console.error(`Error creating employee instance: ${err.message}`);
+      reject(err);
+    });
+
+    instance.on("close", (code) => {
+      console.log(`Employee instance closed with code ${code}`);
+      resolve(instance);
+    });
+
+    employeeOnboard[currentEmployeeIndex].instances.push({
+      instance,
+      childProcessId,
+    });
   });
 }
 
 function createTenantInstance() {
-  const instancePath = path.join(
-    __dirname,
-    "../Tenant_management_Service",
-    "server.js"
-  );
-  const instance = spawn("node", [instancePath]);
-  tenantManagement[currentTenantIndex].instances.push(instance);
+  return new Promise((resolve, reject) => {
+    const instancePath = path.join("/usr/src/app", "server.js");
+    const instance = spawn("nodemon", [instancePath]);
+    const childProcessId = instance.pid;
 
-  instance.on("exit", (code) => {
-    const index =
-      tenantManagement[currentTenantIndex].instances.indexOf(instance);
-    tenantManagement[currentTenantIndex].instances.splice(index, 1);
+    instance.on("exit", (code) => {
+      const index =
+        tenantManagement[currentTenantIndex].instances.indexOf(instance);
+      tenantManagement[currentTenantIndex].instances.splice(index, 1);
+      console.log(`Tenant instance exited with code ${code}`);
+    });
+
+    instance.on("error", (err) => {
+      console.error(`Error creating tenant instance: ${err.message}`);
+      reject(err);
+    });
+
+    instance.on("close", (code) => {
+      console.log(`Tenant instance closed with code ${code}`);
+      resolve(instance);
+    });
+
+    tenantManagement[currentTenantIndex].instances.push({
+      instance,
+      childProcessId,
+    });
   });
 }
 
 function checkAndScale() {
+  console.log(employeeOnboard);
+  console.log(tenantManagement);
   console.log(
     "Number of employee instances currently - ",
     employeeOnboard[currentEmployeeIndex].instances.length
   );
+
   console.log(
     "Number of tenant instances currently - ",
     tenantManagement[currentTenantIndex].instances.length

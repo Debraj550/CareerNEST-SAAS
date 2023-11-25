@@ -14,8 +14,7 @@ services:
     build:
       context: ./server/Tenant_management_Service
       dockerfile: Dockerfile
-    ports:
-      - "8001:8001"
+    ports: []
     volumes:
       - ./server/Tenant_management_Service:/usr/src/app
     depends_on:
@@ -25,21 +24,18 @@ services:
     build:
       context: ./server/Employee_Onboarding_Service
       dockerfile: Dockerfile
-    ports:
-      - "8002:8002"
+    ports: []
     volumes:
       - ./server/Employee_Onboarding_Service:/usr/src/app
     depends_on:
       - react
 
-  master_load_balancer:
-    build:
-      context: ./server/Master_Server
-      dockerfile: Dockerfile
+  nginx_load_balancer:
+    image: nginx:latest
     ports:
-      - "8080:8080"
+      - "80:80"
     volumes:
-      - ./server/Master_Server:/usr/src/app
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     depends_on:
       - tenant_service
       - employee_onboarding_service
