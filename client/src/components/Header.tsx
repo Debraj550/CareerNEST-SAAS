@@ -44,8 +44,8 @@ export const Header: React.FC = () => {
             </div>
             <div>
               <div className="text-lg flex gap-6">
-                {isTenant && (
-                  <>
+                {isTenant ? (
+                  <div>
                     <Link
                       className="px-2 py-1 border-b-2 border-gray-400 rounded-xl "
                       to="/admin"
@@ -62,10 +62,9 @@ export const Header: React.FC = () => {
                         Employee Onboarding
                       </h1>
                     </Link>
-                  </>
-                )}
-                {!isTenant && (
-                  <div>
+                  </div>
+                ) : (
+                  <div className="text-lg flex gap-6">
                     <Link
                       className="px-2 py-1 border-b-2 border-gray-400 rounded-xl "
                       to="/home"

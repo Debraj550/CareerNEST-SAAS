@@ -37,7 +37,7 @@ const Signin = (props: Props) => {
     const url =
       isTenant === "Tenant"
         ? "/api/tenant/login-tenant"
-        : "/api/onboard/login-employee";
+        : "/api/onboard/employee-login";
     try {
       if (isTenant) {
         const response = await tenantApi.post(url, user);
