@@ -14,10 +14,11 @@ services:
     build:
       context: ./server/Tenant_management_Service
       dockerfile: Dockerfile
-    ports:
-      - "8001:8001"
+    ports: []
     volumes:
       - ./server/Tenant_management_Service:/usr/src/app
+    deploy:
+      replicas: 2
     depends_on:
       - react
 
@@ -29,6 +30,8 @@ services:
       - "8002:8002"
     volumes:
       - ./server/Employee_Onboarding_Service:/usr/src/app
+    deploy:
+      replicas: 1
     depends_on:
       - react
 

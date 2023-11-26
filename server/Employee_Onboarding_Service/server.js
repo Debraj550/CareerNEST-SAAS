@@ -5,6 +5,7 @@ import knex from "knex";
 import bcrypt from "bcryptjs";
 import dbConfig from "./utils/dbconnection.js";
 import dotenv from "dotenv";
+import regissterEmployee from "./controller/RegisterEmployee.js";
 
 dotenv.config();
 const db = knex(dbConfig.development);
@@ -20,7 +21,9 @@ app.get("/api/onboard/", async (req, res) => {
     .json({ message: "API Working for Employee Onboarding service." });
 });
 
-app.post("/api/onboard/employee-regisster", (req, res) => {});
+app.post("/api/onboard/employee-register", (req, res) => {
+  regissterEmployee(req, res, db);
+});
 
 app.listen(process.env.PORT, async () => {
   try {

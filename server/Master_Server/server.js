@@ -33,6 +33,7 @@ let onboardReqCount = 0;
 app.all("/api/onboard/*", (req, res) => {
   onboardReqCount++;
   const target = getNextEmployeeInstance().url;
+
   proxy.web(req, res, { target });
 });
 
@@ -49,14 +50,12 @@ app.listen(PORT, () => {
 });
 
 function getNextTenantInstance() {
-  currentTenantIndex =
-    (currentTenantIndex + 1) % tenantManagement.instance.length;
+  currentTenantIndex = (currentTenantIndex + 1) % tenantManagement.length;
   return tenantManagement[currentTenantIndex];
 }
 
 function getNextEmployeeInstance() {
-  currentEmployeeIndex =
-    (currentEmployeeIndex + 1) % employeeOnboard.instance.length;
+  currentEmployeeIndex = (currentEmployeeIndex + 1) % employeeOnboard.length;
   return employeeOnboard[currentEmployeeIndex];
 }
 

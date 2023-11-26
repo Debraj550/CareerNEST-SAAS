@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import WelcomeBoard from "./WelcomeBoard";
-import { tenantApi } from "../api/axios";
+import { employeeOnboardApi, tenantApi } from "../api/axios";
 import { AuthContext } from "../context/AuthContext";
 
 type Props = {};
@@ -34,23 +34,44 @@ const Signin = (props: Props) => {
   };
 
   const handleSignIn = async () => {
-    const url = isTenant === "Tenant" ? "/api/tenant/login-tenant" : "/";
+    const url =
+      isTenant === "Tenant"
+        ? "/api/tenant/login-tenant"
+        : "/api/onboard/login-employee";
     try {
-      const response = await tenantApi.post(url, user);
-      const data = response.data;
-      if (data?.status) {
-        authContext?.setUser({
-          name: data.tenantName,
-          email: data.email,
-          date_joined: data.date_joined,
-          status: data.status,
-          isTenant: isTenant === "Tenant" ? 1 : 0,
-          tenant_id: data.tenant_id,
-        });
-        navigate("/home");
+      if (isTenant) {
+        const response = await tenantApi.post(url, user);
+        const data = response.data;
+        if (data?.status) {
+          authContext?.setUser({
+            name: data.tenantName,
+            email: data.email,
+            date_joined: data.date_joined,
+            status: data.status,
+            isTenant: isTenant === "Tenant" ? 1 : 0,
+            tenant_id: data.tenant_id,
+          });
+          navigate("/home");
+        } else {
+          setError(true);
+          return;
+        }
       } else {
-        setError(true);
-        return;
+        const response = await employeeOnboardApi.post(url, user);
+        const data = response.data;
+        if (data?.status) {
+          authContext?.setUser({
+            name: data.first_name + " " + data.last_name,
+            email: data.email,
+            status: data.status,
+            isTenant: isTenant === "Tenant" ? 1 : 0,
+            tenant_id: data.tenant_id,
+          });
+          navigate("/home");
+        } else {
+          setError(true);
+          return;
+        }
       }
     } catch (err) {
       setError(true);

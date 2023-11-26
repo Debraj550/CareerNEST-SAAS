@@ -3,7 +3,7 @@ import React, { useState, createContext, ReactNode, useEffect } from "react";
 interface UserSignin {
   name: string;
   email: string;
-  date_joined: string;
+  date_joined?: string;
   status: boolean;
   isTenant: number;
   tenant_id?: number;
