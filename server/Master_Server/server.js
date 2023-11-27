@@ -1,11 +1,9 @@
 import express from "express";
 import httpProxy from "http-proxy";
-import Docker from "dockerode";
 import { exec } from "child_process";
 
 const app = express();
 const proxy = httpProxy.createProxyServer();
-const docker = new Docker();
 
 const tenantManagement = [
   {
@@ -62,8 +60,8 @@ function getNextEmployeeInstance() {
 
 async function scaleInstances() {
   for (let i = 0; i < 2; i++) {
-    await scaleService(employeeOnboard[currentEmployeeIndex]);
-    await scaleService(tenantManagement[currentTenantIndex]);
+    scaleService(employeeOnboard[currentEmployeeIndex]);
+    scaleService(tenantManagement[currentTenantIndex]);
   }
 }
 
@@ -86,7 +84,7 @@ function scaleService(serviceConfig) {
         console.log(
           `Scaling up ${serviceName} to ${desiredReplicas} replicas...`
         );
-
+        serviceConfig.requestCount = 0;
         exec(
           `docker service scale ${serviceName}=${desiredReplicas}`,
           (scaleError) => {
@@ -104,17 +102,17 @@ function scaleService(serviceConfig) {
   );
 }
 
-async function checkAndScale() {
+function checkAndScale() {
   //   console.log("Employee instances:", employeeOnboard);
   //   console.log("Tenant instances:", tenantManagement);
 
-  await scaleService(employeeOnboard[currentEmployeeIndex]);
-  await scaleService(tenantManagement[currentTenantIndex]);
-
+  scaleService(employeeOnboard[currentEmployeeIndex]);
+  scaleService(tenantManagement[currentTenantIndex]);
   console.log(
     `Onboard Request count is normal (${employeeOnboard[currentEmployeeIndex].requestCount})`
   );
   console.log(
     `Tenant Request count is normal (${tenantManagement[currentTenantIndex].requestCount})`
   );
+  console.log("=================================");
 }
