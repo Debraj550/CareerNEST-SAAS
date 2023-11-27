@@ -10,8 +10,6 @@ services:
 
   tenant_service:
     image: tenant_service_image:latest
-    ports:
-      - "8001:8001"
     volumes:
       - ./server/Tenant_management_Service:/usr/src/app
       - /var/run/docker.sock:/var/run/docker.sock
