@@ -10,7 +10,7 @@ const docker = new Docker();
 const tenantManagement = [
   {
     serviceName: "cloud_project_tenant_service",
-    url: "http://tenant_service:8001",
+    url: "http://cloud_project_tenant_service:8001",
     replicas: 0,
     requestCount: 0,
   },
@@ -19,7 +19,7 @@ const tenantManagement = [
 const employeeOnboard = [
   {
     serviceName: "cloud_project_employee_onboarding_service",
-    url: "http://employee_onboarding_service:8002",
+    url: "http://cloud_project_employee_onboarding_service:8002",
     replicas: 0,
     requestCount: 0,
   },

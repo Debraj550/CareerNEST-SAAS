@@ -1,0 +1,39 @@
+version: "3.9"
+
+services:
+  react:
+    image: client_image:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/usr/src/app
+
+  tenant_service:
+    image: tenant_service_image:latest
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./server/Tenant_management_Service:/usr/src/app
+      - /var/run/docker.sock:/var/run/docker.sock
+    deploy:
+      replicas: 2
+
+  employee_onboarding_service:
+    image: employee_onboarding_service_image:latest
+    ports:
+      - "8002:8002"
+    volumes:
+      - ./server/Employee_Onboarding_Service:/usr/src/app
+      - /var/run/docker.sock:/var/run/docker.sock
+    deploy:
+      replicas: 2
+
+  master_load_balancer:
+    image: master_load_balancer_image:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./server/Master_Server:/usr/src/app
+      - /var/run/docker.sock:/var/run/docker.sock
+    deploy:
+      replicas: 1
