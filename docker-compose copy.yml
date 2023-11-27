@@ -1,0 +1,46 @@
+version: "3.9"
+
+services:
+  react:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/usr/src/app
+
+  tenant_service:
+    build:
+      context: ./server/Tenant_management_Service
+      dockerfile: Dockerfile
+    volumes:
+      - ./server/Tenant_management_Service:/usr/src/app
+      - /var/run/docker.sock:/var/run/docker.sock  # Mount Docker socket
+    depends_on:
+      - react
+
+  employee_onboarding_service:
+    build:
+      context: ./server/Employee_Onboarding_Service
+      dockerfile: Dockerfile
+    ports:
+      - "8002:8002"
+    volumes:
+      - ./server/Employee_Onboarding_Service:/usr/src/app
+      - /var/run/docker.sock:/var/run/docker.sock  # Mount Docker socket
+    depends_on:
+      - react
+
+  master_load_balancer:
+    build:
+      context: ./server/Master_Server
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./server/Master_Server:/usr/src/app
+      - /var/run/docker.sock:/var/run/docker.sock  # Mount Docker socket
+    depends_on:
+      - tenant_service
+      - employee_onboarding_service

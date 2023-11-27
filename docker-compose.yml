@@ -2,47 +2,36 @@ version: "3.9"
 
 services:
   react:
-    build:
-      context: ./client
-      dockerfile: Dockerfile
+    image: client_image:latest
     ports:
       - "3000:3000"
     volumes:
       - ./client:/usr/src/app
 
   tenant_service:
-    build:
-      context: ./server/Tenant_management_Service
-      dockerfile: Dockerfile
-    ports: []
+    image: tenant_service_image:latest
     volumes:
       - ./server/Tenant_management_Service:/usr/src/app
+      - /var/run/docker.sock:/var/run/docker.sock
     deploy:
       replicas: 2
-    depends_on:
-      - react
 
   employee_onboarding_service:
-    build:
-      context: ./server/Employee_Onboarding_Service
-      dockerfile: Dockerfile
+    image: employee_onboarding_service_image:latest
     ports:
       - "8002:8002"
     volumes:
       - ./server/Employee_Onboarding_Service:/usr/src/app
+      - /var/run/docker.sock:/var/run/docker.sock
     deploy:
-      replicas: 1
-    depends_on:
-      - react
+      replicas: 2
 
   master_load_balancer:
-    build:
-      context: ./server/Master_Server
-      dockerfile: Dockerfile
+    image: master_load_balancer_image:latest
     ports:
       - "8080:8080"
     volumes:
       - ./server/Master_Server:/usr/src/app
-    depends_on:
-      - tenant_service
-      - employee_onboarding_service
+      - /var/run/docker.sock:/var/run/docker.sock
+    deploy:
+      replicas: 1

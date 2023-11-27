@@ -6,10 +6,11 @@ import Signin from "./components/Signin";
 import ErrorPage from "./pages/ErrorPage";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import JobsPage from "./pages/JobsPage";
-import ResumePage from "./pages/ResumePage";
 import AdminPage from "./pages/AdminPage";
 import { AuthContext } from "./context/AuthContext";
 import EmployeeOnboarding from "./components/EmployeeOnboarding";
+import DiscussionPage from "./pages/DiscussionPage";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   const authContext = useContext(AuthContext);
@@ -32,8 +33,12 @@ function App() {
           }
         ></Route>
         <Route
-          path="/resume"
-          element={isLoggedin ? <ResumePage /> : <Signin />}
+          path="/discussion"
+          element={isLoggedin ? <DiscussionPage /> : <Signin />}
+        ></Route>
+        <Route
+          path="/profile"
+          element={isLoggedin ? <ProfilePage /> : <Signin />}
         ></Route>
         <Route
           path="/employee_onboard"

@@ -45,7 +45,7 @@ export const Header: React.FC = () => {
             <div>
               <div className="text-lg flex gap-6">
                 {isTenant ? (
-                  <div>
+                  <div className="text-lg flex gap-6">
                     <Link
                       className="px-2 py-1 border-b-2 border-gray-400 rounded-xl "
                       to="/admin"
@@ -73,13 +73,15 @@ export const Header: React.FC = () => {
                     </Link>
                     <Link
                       className="px-2 py-1 border-b-2 border-gray-400 rounded-xl"
-                      to="/resume"
+                      to="/discussion"
                     >
-                      <h1 className="transition-all hover:scale-95">Resume</h1>
+                      <h1 className="transition-all hover:scale-95">
+                        Discussion Board
+                      </h1>
                     </Link>
                     <Link
                       className="px-2 py-1 border-b-2 border-gray-400 rounded-xl"
-                      to="/home"
+                      to="/profile"
                     >
                       <h1 className="transition-all hover:scale-95">
                         My Profile
