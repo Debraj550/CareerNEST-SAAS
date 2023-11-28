@@ -1,27 +1,11 @@
 import express from "express";
 import httpProxy from "http-proxy";
 import { exec } from "child_process";
+import tenantManagement from "./configs/tenantManagement.js";
+import employeeOnboard from "./configs/employeeOnboard.js";
 
 const app = express();
 const proxy = httpProxy.createProxyServer();
-
-const tenantManagement = [
-  {
-    serviceName: "cloud_project_tenant_service",
-    url: "http://cloud_project_tenant_service:8001",
-    replicas: 0,
-    requestCount: 0,
-  },
-];
-
-const employeeOnboard = [
-  {
-    serviceName: "cloud_project_employee_onboarding_service",
-    url: "http://cloud_project_employee_onboarding_service:8002",
-    replicas: 0,
-    requestCount: 0,
-  },
-];
 
 const PORT = 8080;
 const MAX_REPLICAS = 10;

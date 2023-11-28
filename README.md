@@ -44,3 +44,10 @@
 - Job-Application Service (Port: 8003)
 - Resume-Builder-Service (Port: 8004)
 - Job-Notification-Service (Port: 8005)
+
+
+## Docker Commands ->
+ - Create and Image from Docker File: `dokcer built -t <image_name>:tag .`
+ - Docker compose up and down: `docker compose up -d ` or `docker compose down`
+ - Swarm Initialization: `docker swarm init`
+ - Deploy stack of docker compose in swarm manager node: `docker stack deploy -c docker-compose.yml <stack_name>`
