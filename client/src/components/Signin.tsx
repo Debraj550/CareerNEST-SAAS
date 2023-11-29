@@ -39,7 +39,7 @@ const Signin = (props: Props) => {
         ? "/api/tenant/login-tenant"
         : "/api/onboard/employee-login";
     try {
-      if (isTenant) {
+      if (isTenant === "Tenant") {
         const response = await tenantApi.post(url, user);
         const data = response.data;
         if (data?.status) {
@@ -59,6 +59,7 @@ const Signin = (props: Props) => {
       } else {
         const response = await employeeOnboardApi.post(url, user);
         const data = response.data;
+        console.log(data);
         if (data?.status) {
           authContext?.setUser({
             name: data.first_name + " " + data.last_name,
