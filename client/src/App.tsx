@@ -11,6 +11,7 @@ import { AuthContext } from "./context/AuthContext";
 import EmployeeOnboarding from "./components/EmployeeOnboarding";
 import DiscussionPage from "./pages/DiscussionPage";
 import ProfilePage from "./pages/ProfilePage";
+import LeaveApplicationPage from "./pages/LeaveApplicationPage";
 
 function App() {
   const authContext = useContext(AuthContext);
@@ -35,6 +36,10 @@ function App() {
         <Route
           path="/discussion"
           element={isLoggedin ? <DiscussionPage /> : <Signin />}
+        ></Route>
+        <Route
+          path="/leave"
+          element={isLoggedin ? <LeaveApplicationPage /> : <Signin />}
         ></Route>
         <Route
           path="/profile"

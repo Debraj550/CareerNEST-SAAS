@@ -36,6 +36,35 @@
 - The API should return the following in a JSON object: Success or failure, Vector clocks of
   all replicas, Node number where the write took place (in case of write)
 
+## Technology stack ->
+
+- React JS
+- Typescript/javascript
+- Tailwind CSS
+- Node JS, Express
+- AWS RDS (Postgres)
+- Nginx (optional config is present)
+- REST API Microservices
+- Docker Swarm
+
+## Key Features ->
+
+- Organization specific multi-tenant based highly available and scalable employee management application.
+- Feature to deploy a particular service with a specific configuration load-balancing method and autoscaling support upto 10 instance per service.
+- Tenant mangement and employee onboarding service along with tenant specific job posting, employee discussion form, employee leave application service,employee job application service and profile management service.
+
+## Setup guide to run this project in local machine ->
+
+- **Git Clone the project to your local directory with the following command**:
+  - `git clone https://github.com/Debraj550/CareerNEST-SAAS.git`
+- **Install Docker Desktop if you dont have it installed from the following link**:
+  - `https://docs.docker.com/engine/install/`
+- **Go inside the project directory in your local machine (where client, server and docker-compose.yml file is present) and run the following commands in terminal:**
+  - `docker swarm init`
+  - `docker stack deploy -c docker-compose.yml careernest` (you can replace the "carrernest" name with any name of your choice)
+  - (Optional - To stop the project and remove the services) `docker swarm leave --force`
+- **Go to browser and open [http://localhost:3000].**
+
 ## Ports
 
 - Tenant-Management-Service (Port: 8001)

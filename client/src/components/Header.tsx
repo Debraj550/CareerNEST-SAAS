@@ -81,6 +81,14 @@ export const Header: React.FC = () => {
                     </Link>
                     <Link
                       className="px-2 py-1 border-b-2 border-gray-400 rounded-xl"
+                      to="/leave"
+                    >
+                      <h1 className="transition-all hover:scale-95">
+                        Leave Application
+                      </h1>
+                    </Link>
+                    <Link
+                      className="px-2 py-1 border-b-2 border-gray-400 rounded-xl"
                       to="/profile"
                     >
                       <h1 className="transition-all hover:scale-95">
