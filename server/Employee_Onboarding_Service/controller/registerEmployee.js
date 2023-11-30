@@ -8,12 +8,17 @@ const regissterEmployee = async (req, res, db) => {
 
   const hasedPassword = bcrypt.hashSync(process.env.DEFAULT_PASSWROD, 10);
   try {
-    const response = await db("employeeRegister").insert({
+    const response1 = await db("employeeRegister").insert({
       first_name: first_name,
       last_name: last_name,
       email: email,
       tenant_id: tenant_id,
       password: hasedPassword,
+    });
+    
+    const response2 = await db("employeedetails").insert({
+      tenant_id: tenant_id,
+
     });
 
     res.status(200).json("Successfully Registered and Created login entry");
