@@ -1,12 +1,8 @@
 ## CareerNEST - Multi-Tenant Employee Management SAAS Application
 
-| Signin/Signup                  |
-| ------------------------------ |
-| ![Image1](github_images/1.png) |
-
-| Employee Home/Jobs             |
-| ------------------------------ |
-| ![Image2](github_images/2.png) |
+| Signin/Signup                  | Employee Home/Jobs             |
+| ------------------------------ | ------------------------------ |
+| ![Image1](github_images/1.png) | ![Image2](github_images/2.png) |
 
 ## Problem Statement
 
