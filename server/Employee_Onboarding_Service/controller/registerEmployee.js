@@ -15,11 +15,6 @@ const regissterEmployee = async (req, res, db) => {
       tenant_id: tenant_id,
       password: hasedPassword,
     });
-    
-    const response2 = await db("employeedetails").insert({
-      tenant_id: tenant_id,
-
-    });
 
     res.status(200).json("Successfully Registered and Created login entry");
   } catch (e) {

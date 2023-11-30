@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from "react";
 import { Link } from "react-router-dom";
 import WelcomeBoard from "./WelcomeBoard";
-import { tenantApi } from "../api/axios";     
+import { tenantApi } from "../api/axios";
 import "react-toastify/dist/ReactToastify.css";
 
 type Props = {};
@@ -57,7 +57,6 @@ const Signup = (props: Props) => {
         if (response?.status === 200) {
           setSuccess(true);
         }
-
       } catch (err) {
         setError(true);
         setSuccess(false);
