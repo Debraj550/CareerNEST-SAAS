@@ -1,9 +1,5 @@
 ## CareerNEST - Multi-Tenant Employee Management SAAS Application
 
-| Signin/Signup                  | Employee Home/Jobs             |
-| ------------------------------ | ------------------------------ |
-| ![Image1](github_images/1.png) | ![Image2](github_images/2.png) |
-
 ## Problem Statement
 
 ### Q1. Load balancing and Auto scaling. In this problem, implement a system for the following requirements.
@@ -40,6 +36,12 @@
 - The API should return the following in a JSON object: Success or failure, Vector clocks of
   all replicas, Node number where the write took place (in case of write)
 
+## Image Samples
+
+| Signin/Signup                  | Employee Home/Jobs             |
+| ------------------------------ | ------------------------------ |
+| ![Image1](github_images/1.png) | ![Image2](github_images/2.png) |
+
 ## Technology stack 🔥->
 
 - React JS
@@ -74,6 +76,7 @@
 
 ## Ports
 
+- Master Load Balancer Service (Port: 8080)
 - Tenant-Management-Service (Port: 8001)
 - Employee-onboarding-service (Port: 8001)
 - Job-Posts-Service (Port: 8003)
@@ -81,7 +84,7 @@
 - Leave-application-service (Port: 8005)
 - Discussion-forum-service (Port: 8006)
 
-## Docker Commands ->
+## Essential Docker Commands ->
 
 - Create and Image from Docker File: `dokcer built -t <image_name>:tag .`
 - Docker compose up and down: `docker compose up -d ` or `docker compose down`
