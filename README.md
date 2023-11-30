@@ -1,6 +1,10 @@
-## ToDo-SAAS Cloud Multi Tenant based application with load balancing and auto scaling.
+## CareerNEST - Multi-Tenant Employee Management SAAS Application
 
-## to-do
+| Signin/Signup                  | Employee Home/Jobs             |
+| ------------------------------ | ------------------------------ |
+| ![Image1](github_images/1.png) | ![Image2](github_images/2.png) |
+
+## Problem Statement
 
 ### Q1. Load balancing and Auto scaling. In this problem, implement a system for the following requirements.
 
@@ -36,7 +40,7 @@
 - The API should return the following in a JSON object: Success or failure, Vector clocks of
   all replicas, Node number where the write took place (in case of write)
 
-## Technology stack ->
+## Technology stack 🔥->
 
 - React JS
 - Typescript/javascript
@@ -47,13 +51,16 @@
 - REST API Microservices
 - Docker Swarm
 
-## Key Features ->
+## Key Features 🌟->
 
-- Organization specific multi-tenant based highly available and scalable employee management application.
-- Feature to deploy a particular service with a specific configuration load-balancing method and autoscaling support upto 10 instance per service.
-- Tenant mangement and employee onboarding service along with tenant specific job posting, employee discussion form, employee leave application service,employee job application service and profile management service.
+- **Multi-Tenant Employee Management SAAS**:
+  - Developed a scalable and highly available SAAS solution for employee management, supporting multiple organizations with distinct configurations.
+- **Dynamic Service Deployment:**
+  - Introduced a flexible service deployment feature allowing organizations to configure load-balancing methods and enable auto-scaling, accommodating up to 10 instances per service.
+- **Comprehensive Modules:**
+  - Provide tenant-specific modules for employee onboarding, job posting, discussion forums, leave applications, job applications, and profile management, streamlining employee management portal within a secure and customizable environment.
 
-## Setup guide to run this project in local machine ->
+## Setup guide to run this project in local machine 🚀->
 
 - **Git Clone the project to your local directory with the following command**:
   - `git clone https://github.com/Debraj550/CareerNEST-SAAS.git`
