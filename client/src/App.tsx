@@ -12,6 +12,7 @@ import EmployeeOnboarding from "./components/EmployeeOnboarding";
 import DiscussionPage from "./pages/DiscussionPage";
 import ProfilePage from "./pages/ProfilePage";
 import LeaveApplicationPage from "./pages/LeaveApplicationPage";
+import CreateJobsPage from "./pages/CreateJobsPage";
 
 function App() {
   const authContext = useContext(AuthContext);
@@ -44,6 +45,10 @@ function App() {
         <Route
           path="/profile"
           element={isLoggedin ? <ProfilePage /> : <Signin />}
+        ></Route>
+        <Route
+          path="/jobs"
+          element={isTenant ? <CreateJobsPage /> : <ErrorPage />}
         ></Route>
         <Route
           path="/employee_onboard"

@@ -32,10 +32,10 @@ export const Header: React.FC = () => {
         {isLoggedin ? (
           <>
             <div className="w-4/12 ">
-              <div className="flex relative">
+              <div className={`flex relative ${isTenant ? `hidden` : ``}`}>
                 <input
                   type="text"
-                  className="border border-gray-500 px-2 py-2 w-full rounded-lg"
+                  className="border border-gray-500 px-2 py-1 w-full rounded-lg"
                 ></input>
                 <button className="absolute right-0 top-0 bottom-0 px-3 py-1 ">
                   <i className="fas fa-search"></i>
@@ -43,14 +43,14 @@ export const Header: React.FC = () => {
               </div>
             </div>
             <div>
-              <div className="text-lg flex gap-6">
+              <div className=" flex gap-6">
                 {isTenant ? (
                   <div className="text-lg flex gap-6">
                     <Link
-                      className="px-2 py-1 border-b-2 border-gray-400 rounded-xl "
+                      className="px-2 py-1 border-b-2 border-gray-400 rounded-xl"
                       to="/admin"
                     >
-                      <h1 className="transition-all hover:scale-95">
+                      <h1 className="transition-all hover:scale-95 ">
                         Service Management
                       </h1>
                     </Link>
@@ -62,9 +62,17 @@ export const Header: React.FC = () => {
                         Employee Onboarding
                       </h1>
                     </Link>
+                    <Link
+                      className="px-2 py-1 border-b-2 border-gray-400 rounded-xl "
+                      to="/jobs"
+                    >
+                      <h1 className="transition-all hover:scale-95">
+                        Register Open Positions
+                      </h1>
+                    </Link>
                   </div>
                 ) : (
-                  <div className="text-lg flex gap-6">
+                  <div className=" flex gap-6">
                     <Link
                       className="px-2 py-1 border-b-2 border-gray-400 rounded-xl "
                       to="/home"
@@ -84,7 +92,7 @@ export const Header: React.FC = () => {
                       to="/leave"
                     >
                       <h1 className="transition-all hover:scale-95">
-                        Leave Application
+                        Apply for a leave
                       </h1>
                     </Link>
                     <Link
