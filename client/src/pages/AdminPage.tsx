@@ -16,7 +16,10 @@ const AdminPage = () => {
   const fetchTenantData = async () => {
     try {
       const response = await tenantApi.get("/api/tenant/get-all-tenants");
-      const data = await response?.data;
+      const data = await response?.data?.data;
+      const requestInstance = response.data["os"];
+      console.log(data);
+      console.log("Request Instace - ", requestInstance);
       setTenants(data);
     } catch (err) {
       console.log(err);

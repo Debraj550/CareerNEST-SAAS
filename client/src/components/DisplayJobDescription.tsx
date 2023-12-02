@@ -6,25 +6,20 @@ interface DisplayJobDescriptionProps {
 }
 
 const DisplayJobDescription = ({ job }: DisplayJobDescriptionProps) => {
-  const { job_title, company, location, posted_by, job_description } = job;
-
-  const formattedCompanyName: string =
-    company.slice(0, 1).toUpperCase() + company.slice(1).toLowerCase();
+  const { role, city, country, posted_by, description, date_posted } = job;
 
   return (
     <div className="border-2 shadow-md min-h-[750px] max-h-screen mx-4 px-6 py-2 overflow-y-scroll relative rounded-lg">
       <div className="mb-4">
-        <h1 className="text-2xl font-bold ">{job_title.toUpperCase()}</h1>
-        <p className="text-lg text-blue-600 font-bold">
-          {formattedCompanyName}
-        </p>
-        <p>{location}</p>
+        <h1 className="text-2xl font-bold ">{role.toUpperCase()}</h1>
+        <p className="text-lg text-blue-600 font-bold">{country}</p>
+        <p>{city}</p>
         <p>Posted By - {posted_by}</p>
         <div className="my-2 w-full ">
           <h1 className="font-bold text-lg border-t border-b py-2 rounded-md px-2">
             Job Description
           </h1>
-          <p className="my-2">{job_description}</p>
+          <p className="my-2">{description}</p>
         </div>
       </div>
       <div className="absolute right-0 top-0">

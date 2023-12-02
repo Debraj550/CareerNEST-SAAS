@@ -1,17 +1,39 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import jobs from "../mockdata/jobs.json";
 import DisplayJobCard from "./DisplayJobCard"; // Fix the import statement
 import { Job } from "../models/Job";
 import DisplayJobDescription from "./DisplayJobDescription";
 import Lottie from "lottie-react";
 import joblitte from "../static/joblottie.json";
+import { jobsApi } from "../api/axios";
+import { AuthContext } from "../context/AuthContext";
 type Props = {};
 
 const DisplayJobs = (props: Props) => {
   const [selectedJob, setSelectedJob] = useState<Job>();
+  const [jobs, setJobs] = useState<Job[]>([]);
+  const authContext = useContext(AuthContext);
+  const tenant_id = authContext?.user.tenant_id;
+
   const handleJobClick = (job: Job) => {
     setSelectedJob(job);
   };
+
+  const fetchJobs = async () => {
+    try {
+      const response = await jobsApi.get("/api/job_post/get-job", {
+        params: {
+          tenant_id: tenant_id,
+        },
+      });
+      if (response.data) setJobs(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    fetchJobs();
+  }, []);
 
   return (
     <div className="flex w-full px-6 py-2">
