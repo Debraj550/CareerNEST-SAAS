@@ -7,6 +7,7 @@ interface UserSignin {
   status: boolean;
   isTenant: number;
   tenant_id?: number;
+  employee_id?: number;
 }
 
 interface AuthContextProps {

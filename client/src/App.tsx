@@ -13,6 +13,7 @@ import DiscussionPage from "./pages/DiscussionPage";
 import ProfilePage from "./pages/ProfilePage";
 import LeaveApplicationPage from "./pages/LeaveApplicationPage";
 import CreateJobsPage from "./pages/CreateJobsPage";
+import ApplicationDashboard from "./pages/ApplicationDashboard";
 
 function App() {
   const authContext = useContext(AuthContext);
@@ -45,6 +46,10 @@ function App() {
         <Route
           path="/profile"
           element={isLoggedin ? <ProfilePage /> : <Signin />}
+        ></Route>
+        <Route
+          path="/application"
+          element={isLoggedin ? <ApplicationDashboard /> : <Signin />}
         ></Route>
         <Route
           path="/jobs"

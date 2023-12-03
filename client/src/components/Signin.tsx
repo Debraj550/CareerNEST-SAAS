@@ -59,7 +59,7 @@ const Signin = (props: Props) => {
       } else {
         const response = await employeeOnboardApi.post(url, user);
         const data = response.data;
-        console.log(data);
+        
         if (data?.status) {
           authContext?.setUser({
             name: data.first_name + " " + data.last_name,
@@ -67,6 +67,7 @@ const Signin = (props: Props) => {
             status: data.status,
             isTenant: isTenant === "Tenant" ? 1 : 0,
             tenant_id: data.tenant_id,
+            employee_id: data.employee_id,
           });
           navigate("/home");
         } else {

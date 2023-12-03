@@ -97,6 +97,14 @@ export const Header: React.FC = () => {
                     </Link>
                     <Link
                       className="px-2 py-1 border-b-2 border-gray-400 rounded-xl"
+                      to="/application"
+                    >
+                      <h1 className="transition-all hover:scale-95">
+                        Application Dashboard
+                      </h1>
+                    </Link>
+                    <Link
+                      className="px-2 py-1 border-b-2 border-gray-400 rounded-xl"
                       to="/profile"
                     >
                       <h1 className="transition-all hover:scale-95">

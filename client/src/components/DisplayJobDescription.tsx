@@ -1,12 +1,35 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Job } from "../models/Job";
+import { AuthContext } from "../context/AuthContext";
+import { jobApplicationApi } from "../api/axios";
 
 interface DisplayJobDescriptionProps {
   job: Job;
 }
 
 const DisplayJobDescription = ({ job }: DisplayJobDescriptionProps) => {
-  const { role, city, country, posted_by, description, date_posted } = job;
+  const { job_id, role, city, country, posted_by, description, date_posted } =
+    job;
+
+  console.log(job);
+  const authContext = useContext(AuthContext);
+  const employee_id = authContext?.user.employee_id;
+
+  const handleApply = async () => {
+    try {
+      const response = await jobApplicationApi.post(
+        "api/job-applications/apply-job",
+        {
+          job_id: job_id,
+          employee_id: employee_id,
+          role: role,
+        }
+      );
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="border-2 shadow-md min-h-[750px] max-h-screen mx-4 px-6 py-2 overflow-y-scroll relative rounded-lg">
@@ -23,7 +46,10 @@ const DisplayJobDescription = ({ job }: DisplayJobDescriptionProps) => {
         </div>
       </div>
       <div className="absolute right-0 top-0">
-        <button className="px-4 py-2 border-2 bg-gray-800 text-white rounded-xl my-2 mx-2 transition-all hover:bg-gray-950 hover:scale-105">
+        <button
+          onClick={handleApply}
+          className="px-4 py-2 border-2 bg-gray-800 text-white rounded-xl my-2 mx-2 transition-all hover:bg-gray-950 hover:scale-105"
+        >
           Apply
         </button>
       </div>

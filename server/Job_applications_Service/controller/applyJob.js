@@ -1,6 +1,7 @@
 const applyJob = async (req, res, db) => {
-  const { employee_id, job_id } = req.body;
-  if (!employee_id || !job_id) {
+  const { employee_id, job_id, role } = req.body;
+  console.log(job_id);
+  if (!employee_id || !job_id || !role) {
     res.status(400).json("Missing job id or employee id");
     return;
   }
@@ -8,6 +9,7 @@ const applyJob = async (req, res, db) => {
     const response1 = await db("job_applications").insert({
       job_id: job_id,
       employee_id: employee_id,
+      role: role,
     });
     res.status(200).json("Successfully Registered and Created login entry");
   } catch (err) {
