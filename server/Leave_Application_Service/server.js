@@ -1,27 +1,21 @@
 import express from "express";
-import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import cors from "cors";
 import knex from "knex";
+import bcrypt from "bcryptjs";
 import dbConfig from "./utils/dbconnection.js";
-import applyJob from "./controller/applyJob.js";
-import getAllJobApplication from "./controller/getAllJobApplication.js";
+import dotenv from "dotenv";
 
 dotenv.config();
-
 const db = knex(dbConfig.development);
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-app.post("/api/job-applications/apply-job", (req, res) => {
-  applyJob(req, res, db);
-});
+app.post("/api/leave/apply-leave", (req, res) => {});
 
-app.get("/api/job-applications/get-all-job-application-status", (req, res) => {
-  getAllJobApplication(req, res, db);
-});
+app.post("/api/leave/get-leave-status", (req, res) => {});
 
 app.listen(process.env.PORT, async () => {
   try {

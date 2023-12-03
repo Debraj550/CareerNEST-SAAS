@@ -17,7 +17,6 @@ export const loginEmployee = async (req, res, db) => {
         email: user.email,
         status: true,
         tenant_id: user.tenant_id,
-        employee_id: user.employee_id,
       });
     } else {
       res.status(401).json({ error: "Invalid password" });
