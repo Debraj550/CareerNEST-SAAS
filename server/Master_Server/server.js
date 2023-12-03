@@ -3,6 +3,7 @@ import httpProxy from "http-proxy";
 import { exec } from "child_process";
 import tenantManagement from "./configs/tenantManagement.js";
 import employeeOnboard from "./configs/employeeOnboard.js";
+import jobPosts from "./configs/jobPosts.js";
 
 const app = express();
 const proxy = httpProxy.createProxyServer();
@@ -13,6 +14,10 @@ const REQUEST_THRESHOLD = 2;
 
 let currentTenantIndex = 0;
 let currentEmployeeIndex = 0;
+let currentJobPostIndex = 0;
+let currentJobApplicationIndex = 0;
+
+////////////////////////////////////////////////////////
 
 app.all("/api/onboard/*", (req, res) => {
   employeeOnboard[currentEmployeeIndex].requestCount++;
@@ -26,11 +31,19 @@ app.all("/api/tenant/*", (req, res) => {
   proxy.web(req, res, { target });
 });
 
+app.all("/api/job-post-service/*", (req, res) => {
+  jobPosts[currentJobPostIndex].requestCount++;
+  const target = getNextJobPostInstance().url;
+  proxy.web(req, res, { target });
+});
+
 app.listen(PORT, () => {
   console.log(`Master server is running on port ${PORT}`);
   scaleInstances();
   setInterval(checkAndScale, 5000);
 });
+
+//////////////////////////////////////////////////////////
 
 function getNextTenantInstance() {
   currentTenantIndex = (currentTenantIndex + 1) % tenantManagement.length;
@@ -42,15 +55,24 @@ function getNextEmployeeInstance() {
   return employeeOnboard[currentEmployeeIndex];
 }
 
+function getNextJobPostInstance() {
+  currentJobPostIndex = (currentJobPostIndex + 1) % jobPosts.length;
+  return jobPosts[currentJobPostIndex];
+}
+
+////////////////////////////////////////////////////////
 async function scaleInstances() {
   for (let i = 0; i < 2; i++) {
     scaleService(employeeOnboard[currentEmployeeIndex]);
     scaleService(tenantManagement[currentTenantIndex]);
+    scaleService(jobPosts[currentJobPostIndex]);
   }
 }
 
+/////////////////////////////////////////////////////////
+
 function scaleService(serviceConfig) {
-  const { serviceName, replicas, requestCount } = serviceConfig;
+  const { serviceName, requestCount } = serviceConfig;
 
   exec(
     `docker service inspect --format="{{.Spec.Mode.Replicated.Replicas}}" ${serviceName}`,
@@ -87,16 +109,17 @@ function scaleService(serviceConfig) {
 }
 
 function checkAndScale() {
-  //   console.log("Employee instances:", employeeOnboard);
-  //   console.log("Tenant instances:", tenantManagement);
-
-  scaleService(employeeOnboard[currentEmployeeIndex]);
-  scaleService(tenantManagement[currentTenantIndex]);
   console.log(
-    `Onboard Request count is normal (${employeeOnboard[currentEmployeeIndex].requestCount})`
+    `Onboard Request count is - (${employeeOnboard[currentEmployeeIndex].requestCount})`
   );
   console.log(
-    `Tenant Request count is normal (${tenantManagement[currentTenantIndex].requestCount})`
+    `Tenant Request count is - (${tenantManagement[currentTenantIndex].requestCount})`
+  );
+  console.log(
+    `Tenant Request count is - (${jobPosts[currentJobPostIndex].requestCount})`
   );
   console.log("=================================");
+  scaleService(employeeOnboard[currentEmployeeIndex]);
+  scaleService(tenantManagement[currentTenantIndex]);
+  scaleService(jobPosts[currentJobPostIndex]);
 }
