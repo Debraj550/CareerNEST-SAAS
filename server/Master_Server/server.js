@@ -4,6 +4,7 @@ import { exec } from "child_process";
 import tenantManagement from "./configs/tenantManagement.js";
 import employeeOnboard from "./configs/employeeOnboard.js";
 import jobPosts from "./configs/jobPosts.js";
+import jobApplication from "./configs/jobApplication.js";
 
 const app = express();
 const proxy = httpProxy.createProxyServer();
@@ -37,6 +38,12 @@ app.all("/api/job-post-service/*", (req, res) => {
   proxy.web(req, res, { target });
 });
 
+app.all("/api/job-applications/*", (req, res) => {
+  jobApplication[currentJobApplicationIndex].requestCount++;
+  const target = getNextJobApplicationInstance().url;
+  proxy.web(req, res, { target });
+});
+
 app.listen(PORT, () => {
   console.log(`Master server is running on port ${PORT}`);
   scaleInstances();
@@ -60,12 +67,19 @@ function getNextJobPostInstance() {
   return jobPosts[currentJobPostIndex];
 }
 
+function getNextJobApplicationInstance() {
+  currentJobApplicationIndex =
+    (currentJobApplicationIndex + 1) % jobApplication.length;
+  return jobApplication[currentJobApplicationIndex];
+}
+
 ////////////////////////////////////////////////////////
 async function scaleInstances() {
   for (let i = 0; i < 2; i++) {
     scaleService(employeeOnboard[currentEmployeeIndex]);
     scaleService(tenantManagement[currentTenantIndex]);
     scaleService(jobPosts[currentJobPostIndex]);
+    scaleService(jobApplication[currentJobApplicationIndex]);
   }
 }
 
@@ -116,10 +130,14 @@ function checkAndScale() {
     `Tenant Request count is - (${tenantManagement[currentTenantIndex].requestCount})`
   );
   console.log(
-    `Tenant Request count is - (${jobPosts[currentJobPostIndex].requestCount})`
+    `Job post request count is - (${jobPosts[currentJobPostIndex].requestCount})`
+  );
+  console.log(
+    `Job application Request count is - (${jobApplication[currentJobApplicationIndex].requestCount})`
   );
   console.log("=================================");
   scaleService(employeeOnboard[currentEmployeeIndex]);
   scaleService(tenantManagement[currentTenantIndex]);
   scaleService(jobPosts[currentJobPostIndex]);
+  scaleService(jobApplication[currentJobApplicationIndex]);
 }
