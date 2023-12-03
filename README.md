@@ -70,7 +70,7 @@
   - `https://docs.docker.com/engine/install/`
 - **Go inside the project directory in your local machine (where client, server and docker-compose.yml file is present) and run the following commands in terminal:**
   - `docker swarm init`
-  - `docker stack deploy -c docker-compose.yml careernest` (you can replace the "carrernest" name with any name of your choice)
+  - `docker stack deploy -c docker-compose.yml cloud_project` (you can replace the "carrernest" name with any name of your choice)
   - (Optional - To stop the project and remove the services) `docker swarm leave --force`
 - **Go to browser and open [http://localhost:3000].**
 
@@ -78,7 +78,7 @@
 
 - Master Load Balancer Service (Port: 8080)
 - Tenant-Management-Service (Port: 8001)
-- Employee-onboarding-service (Port: 8001)
+- Employee-onboarding-service (Port: 8002)
 - Job-Posts-Service (Port: 8003)
 - Job-Application Service (Port: 8004)
 - Leave-application-service (Port: 8005)
