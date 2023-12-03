@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import { Job } from "../models/Job";
 import { AuthContext } from "../context/AuthContext";
 import { jobApplicationApi } from "../api/axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface DisplayJobDescriptionProps {
   job: Job;
@@ -25,6 +27,16 @@ const DisplayJobDescription = ({ job }: DisplayJobDescriptionProps) => {
           role: role,
         }
       );
+      toast("Application Submitted Successfully", {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
       console.log(response);
     } catch (err) {
       console.log(err);
@@ -53,6 +65,18 @@ const DisplayJobDescription = ({ job }: DisplayJobDescriptionProps) => {
           Apply
         </button>
       </div>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </div>
   );
 };

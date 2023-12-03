@@ -7,6 +7,7 @@ import dbConfig from "./utils/dbconnection.js";
 import dotenv from "dotenv";
 import regissterEmployee from "./controller/RegisterEmployee.js";
 import { loginEmployee } from "./controller/loginEmployee.js";
+import employeeDetails from "./controller/employeeDetails.js";
 
 dotenv.config();
 const db = knex(dbConfig.development);
@@ -15,11 +16,8 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-app.get("/api/onboard/", async (req, res) => {
-  console.log("Received request for /api/onboard/checkstatus");
-  res
-    .status(200)
-    .json({ message: "API Working for Employee Onboarding service." });
+app.get("/api/onboard/get-employee-details", async (req, res) => {
+  employeeDetails(req, res, db);
 });
 
 app.post("/api/onboard/employee-register", (req, res) => {
