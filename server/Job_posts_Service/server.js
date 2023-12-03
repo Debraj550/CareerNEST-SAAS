@@ -15,11 +15,11 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-app.post("/api/job_post/post-job", (req, res) => {
+app.post("/api/job-post-service/post-job", (req, res) => {
   postJobDetails(req, res, db);
 });
 
-app.get("/api/job_post/get-job", (req, res) => {
+app.get("/api/job-post-service/get-job", (req, res) => {
   getJobDetails(req, res, db);
 });
 

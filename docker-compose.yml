@@ -28,6 +28,26 @@ services:
     deploy:
       replicas: 2
 
+  job_posts_service:
+    image: job_posts_service_image:latest
+    ports:
+      - "8003:8003"
+    volumes:
+      - ./server/Job_posts_Service:/usr/src/app
+      - /var/run/docker.sock:/var/run/docker.sock
+    deploy:
+      replicas: 2
+
+  job_application_service:
+    image: job_application_service_image:latest
+    ports:
+      - "8004:8004"
+    volumes:
+      - ./server/Job_application_Service:/usr/src/app
+      - /var/run/docker.sock:/var/run/docker.sock
+    deploy:
+      replicas: 2
+
   master_load_balancer:
     image: master_load_balancer_image:latest
     ports:

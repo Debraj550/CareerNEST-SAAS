@@ -1,6 +1,5 @@
 const getJobDetails = async (req, res, db) => {
   const { tenant_id } = req.query; // Use req.query instead of req.params
-  console.log(tenant_id);
   try {
     const jobDetails = await db
       .select("*")

@@ -21,7 +21,7 @@ const DisplayJobs = (props: Props) => {
 
   const fetchJobs = async () => {
     try {
-      const response = await jobsApi.get("/api/job_post/get-job", {
+      const response = await jobsApi.get("/api/job-post-service/get-job", {
         params: {
           tenant_id: tenant_id,
         },
