@@ -7,6 +7,7 @@ import dotenv from "dotenv";
 import registerTenant from "./controllers/registerTenants.js";
 import getAllTenants from "./controllers/getAllTenants.js";
 import loginTenant from "./controllers/loginTenant.js";
+import getAllTenantServices from "./controllers/getAllTenantServices.js";
 dotenv.config();
 
 const db = knex(dbConfig.development);
@@ -15,8 +16,8 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Get default
-app.get("/", async (req, res) => {
-  res.status(200).json("API Working for Tenant Management service.");
+app.get("/api/tenant/get-tenant-services", async (req, res) => {
+  getAllTenantServices(req, res, db);
 });
 
 // Get all tenants

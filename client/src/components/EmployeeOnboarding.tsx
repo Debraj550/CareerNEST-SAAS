@@ -56,7 +56,7 @@ const EmployeeOnboarding = () => {
   };
 
   return (
-    <div className="p-4 mx-4">
+    <div className="p-4 mx-4 flex flex-col justify-center items-center">
       <div className="my-2 p-2 border-b-2">
         <h1 className="font-bold text-2xl">Employee Onboarding Portal</h1>
       </div>

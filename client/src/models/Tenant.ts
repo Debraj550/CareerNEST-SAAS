@@ -1,4 +1,6 @@
 export interface Tenant {
-  id: number;
-  country_name: string;
+  tenant_id: number;
+  service_name: string;
+  loadbalancer_type: string;
+  autoscaling: boolean;
 }

@@ -1,21 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { tenantApi } from "../api/axios";
 import TenantCard from "../components/TenantCard";
 import Lottie from "lottie-react";
 import spinner from "../static/spinner.json";
-
-interface Tenants {
-  id: number;
-  country_name: string;
-  tenant_id: number;
-}
+import { AuthContext } from "../context/AuthContext";
+import { Tenant } from "../models/Tenant";
 
 const AdminPage = () => {
-  const [tenants, setTenants] = useState<Tenants[]>([]);
+  const [tenants, setTenants] = useState<Tenant[]>([]);
+  const authContext = useContext(AuthContext);
+  const tenant_id = authContext?.user.tenant_id;
 
   const fetchTenantData = async () => {
     try {
-      const response = await tenantApi.get("/api/tenant/get-all-tenants");
+      const response = await tenantApi.get("/api/tenant/get-tenant-services", {
+        params: {
+          tenant_id: tenant_id,
+        },
+      });
       const data = await response?.data?.data;
       const requestInstance = response.data["os"];
       console.log(data);
@@ -38,9 +40,9 @@ const AdminPage = () => {
       <div>
         {tenants.length > 0 ? (
           <>
-            {tenants.map((tenant: Tenants) => {
+            {tenants.map((tenant: Tenant, idx: number) => {
               return (
-                <div key={tenant.tenant_id}>
+                <div key={idx}>
                   <TenantCard tenant={tenant} />
                 </div>
               );
