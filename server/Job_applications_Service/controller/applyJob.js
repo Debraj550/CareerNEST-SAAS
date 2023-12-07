@@ -1,6 +1,6 @@
 const applyJob = async (req, res, db) => {
   const { employee_id, job_id, role } = req.body;
-  console.log(job_id);
+  console.log(job_id, employee_id, role);
   if (!employee_id || !job_id || !role) {
     res.status(400).json("Missing job id or employee id");
     return;

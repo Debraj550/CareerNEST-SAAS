@@ -11,10 +11,6 @@ const dbConfig = {
       password: process.env.postgres_PASSWORD,
       database: process.env.postgres_DATABASE,
       port: process.env.postgres_PORT,
-      ssl: {
-        require: true,
-        rejectUnauthorized: false,
-      },
     },
     migrations: {
       tableName: "knex_migrations",

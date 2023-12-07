@@ -6,7 +6,7 @@ const regissterEmployee = async (req, res, db) => {
     return res.status(400).json("Incorrect Fom Submission Values");
   }
 
-  const hasedPassword = bcrypt.hashSync(process.env.DEFAULT_PASSWROD, 10);
+  const hasedPassword = bcrypt.hashSync(process.env.DEFAULT_PASSWORD, 10);
   try {
     const response1 = await db("employeeRegister").insert({
       first_name: first_name,

@@ -5,6 +5,9 @@ import tenantManagement from "./configs/tenantManagement.js";
 import employeeOnboard from "./configs/employeeOnboard.js";
 import jobPosts from "./configs/jobPosts.js";
 import jobApplication from "./configs/jobApplication.js";
+import os from "os"
+
+const cpus = os.cpus()
 
 const app = express();
 const proxy = httpProxy.createProxyServer();
